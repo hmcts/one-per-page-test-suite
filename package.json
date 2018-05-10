@@ -8,7 +8,7 @@
   "dependencies": {
     "@hmcts/eslint-config": "^1.3.0",
     "@hmcts/look-and-feel": "^1.13.3",
-    "@hmcts/one-per-page-divorce": "https://github.com/hmcts/one-per-page-divorce.git",
+    "@hmcts/one-per-page": "^3.3.2",
     "@hmcts/tech-docs": "^0.4.0",
     "chai": "^4.1.0",
     "chai-as-promised": "^7.1.1",
@@ -16,6 +16,7 @@
     "codacy-coverage": "^2.0.2",
     "domino": "^2.0.0",
     "eslint": "^4.5.0",
+    "eslint-plugin-mocha": "^5.0.0",
     "jquery": "^3.2.1",
     "mocha": "^4.0.1",
     "nyc": "^11.1.0",
@@ -29,7 +30,12 @@
   "engines": {
     "node": ">=8.9.4"
   },
-  "scripts": {},
+  "scripts": {
+    "lint": "NODE_PATH=. eslint ."
+  },
+  "pre-commit": [
+    "lint"
+  ],
   "license": "MIT",
   "publishConfig": {
     "access": "public"
