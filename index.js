@@ -1,3 +1,3 @@
-const content = require('./content');
+const content = require('./src/content');
 
-module.exports = { content };
+module.exports.content = content;
