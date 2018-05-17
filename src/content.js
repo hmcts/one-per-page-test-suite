@@ -1,7 +1,7 @@
 const { testStep } = require('@hmcts/one-per-page/test/util/supertest');
 const govukTemplate = require('@hmcts/look-and-feel/src/sources/govukTemplate');
 const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
-const { expect } = require('@hmcts/one-per-page/test/util/chai');
+const { expect } = require('../utils/chai');
 
 const templates = [
   govukTemplate.paths.templates,
