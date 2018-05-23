@@ -6,7 +6,9 @@ const { expect } = require('../utils/chai');
 const templates = [
   govukTemplate.paths.templates,
   lookAndFeel.paths.templates,
-  lookAndFeel.backwardsCompatibility.templates
+  'views',
+  'mocks',
+  'steps'
 ];
 
 const content = (step, ignoreContent = []) => {
