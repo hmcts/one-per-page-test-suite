@@ -195,8 +195,8 @@ class TestStepDSL {
   }
 
   withMiddleware(newMiddleware) {
-    const middleware = [...this[_middleware], newMiddleware];
-    return new TestStepDSL(this.step, this.body, middleware);
+    this[_middleware] = [...this[_middleware], newMiddleware];
+    return this;
   }
 
   execute(method, maybePath) {
