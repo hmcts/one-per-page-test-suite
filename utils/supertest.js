@@ -47,7 +47,8 @@ function testApp(views = []) {
           .replace(/[^A-Za-z0-9\s_-]/g, '')
           // replace 'foo bar' to 'foo-bar'
           .replace(/\s/g, '-');
-      }
+      },
+      feedbackLink: 'feedbackLink'
     }
   });
 
@@ -56,14 +57,14 @@ function testApp(views = []) {
   return app;
 }
 
-const cookies = res => res.headers['set-cookie'] || [];
+
 
 const _supertest = Symbol('supertest');
 const _app = Symbol('app');
 const _middleware = Symbol('middleware');
 
-const supertestInstance = stepDSL => {
-  if (stepDSL[_supertest]) return stepDSL[_supertest];
+const configureApp = stepDSL => {
+  if (stepDSL[_app]) return stepDSL[_app];
 
   const app = testApp(stepDSL.viewsDirs);
   stepDSL[_app] = app;
@@ -96,7 +97,16 @@ const supertestInstance = stepDSL => {
   stepDSL.steps.forEach(step => {
     step.bind(app);
   });
-  stepDSL[_supertest] = supertest(app);
+
+  return stepDSL;
+};
+
+const supertestInstance = stepDSL => {
+  if (stepDSL[_supertest]) return stepDSL[_supertest];
+
+  configureApp(stepDSL);
+
+  stepDSL[_supertest] = supertest(stepDSL[_app]);
 
   return stepDSL[_supertest];
 };
@@ -116,7 +126,7 @@ const wrapWithResponseAssertions = supertestObj => {
   };
   supertestObj.session = assertions => {
     return supertestObj.then(res => {
-      // const sid = cookies(res);
+      const cookies = res.headers['set-cookie'] || [];
       return supertest(supertestObj.app)
         .get('/supertest-check-session')
         .set('Cookie', cookies(res))
@@ -157,6 +167,7 @@ class TestStepDSL {
     this[_middleware] = middleware;
     this.viewDirs = [];
     this.steps = [];
+    this.cookies = [];
   }
 
   static create(step) {
@@ -169,6 +180,11 @@ class TestStepDSL {
       req.session = Object.assign(req.session, sessionData);
       next();
     });
+  }
+
+  withCookie(name, value) {
+    this.cookies = [...this.cookies, `${name}=${value}`];
+    return this;
   }
 
   withField(field, value) {
@@ -202,7 +218,15 @@ class TestStepDSL {
   execute(method, maybePath) {
     const path = defined(maybePath) ? maybePath : this.step.path;
     const testExecution = supertestInstance(this)[method](path);
+    if (this.cookies.length) {
+      testExecution.set('Cookie', this.cookies.join(';'));
+    }
     return wrapWithResponseAssertions(testExecution);
+  }
+
+  asServer() {
+    configureApp(this);
+    return supertest.agent(this[_app]);
   }
 
   get(maybePath) {
