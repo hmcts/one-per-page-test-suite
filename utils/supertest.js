@@ -9,55 +9,55 @@ const { i18nMiddleware } = require('@hmcts/one-per-page/src/i18n/i18Next');
 const { defined } = require('@hmcts/one-per-page/src/util/checks');
 const { RequestBoundJourney } = require('@hmcts/one-per-page/src/flow');
 const cookieParser = require('cookie-parser');
+const httpStatus = require('http-status-codes');
 
 const truthies = ['true', 'True', 'TRUE', '1', 'yes', 'Yes', 'YES', 'y', 'Y'];
 const falsies = ['false', 'False', 'FALSE', '0', 'no', 'No', 'NO', 'n', 'N'];
 
-function testApp(views = []) {
+function testApp(stepDSL) {
   const app = express();
-  app.set('views', ['lib/', 'test/views', ...views]);
+  app.set('views', ['lib/', 'test/views', ...stepDSL.viewsDirs]);
+
+  const globals = {
+    isArray(value) {
+      return Array.isArray(value);
+    },
+    parseBool(value) {
+      if (truthies.includes(value)) {
+        return true;
+      }
+      if (falsies.includes(value)) {
+        return false;
+      }
+      return value;
+    },
+    isBoolean(value) {
+      return typeof value === 'boolean';
+    },
+    safeId(...strings) {
+      return strings
+        .map(str => str.toString())
+        .join('-')
+        .toLowerCase()
+        // replace foo[1] to foo-1
+        .replace(/\[(\d{1,})\]/, '-$1')
+        .replace(/[^A-Za-z0-9\s_-]/g, '')
+        // replace 'foo bar' to 'foo-bar'
+        .replace(/\s/g, '-');
+    }
+  };
+
+  Object.assign(globals, stepDSL.globals);
 
   nunjucks(app, {
     autoescape: true,
     watch: true,
     noCache: true,
-    globals: {
-      isArray(value) {
-        return Array.isArray(value);
-      },
-      parseBool(value) {
-        if (truthies.includes(value)) {
-          return true;
-        }
-        if (falsies.includes(value)) {
-          return false;
-        }
-        return value;
-      },
-      isBoolean(value) {
-        return typeof value === 'boolean';
-      },
-      safeId(...strings) {
-        return strings
-          .map(str => str.toString())
-          .join('-')
-          .toLowerCase()
-          // replace foo[1] to foo-1
-          .replace(/\[(\d{1,})\]/, '-$1')
-          .replace(/[^A-Za-z0-9\s_-]/g, '')
-          // replace 'foo bar' to 'foo-bar'
-          .replace(/\s/g, '-');
-      },
-      feedbackLink: 'feedbackLink'
-    }
+    globals
   });
-
-  // configureNunjucks(app, nunjucks);
 
   return app;
 }
-
-
 
 const _supertest = Symbol('supertest');
 const _app = Symbol('app');
@@ -66,7 +66,7 @@ const _middleware = Symbol('middleware');
 const configureApp = stepDSL => {
   if (stepDSL[_app]) return stepDSL[_app];
 
-  const app = testApp(stepDSL.viewsDirs);
+  const app = testApp(stepDSL);
   stepDSL[_app] = app;
 
   app.use((req, res, next) => {
@@ -130,7 +130,7 @@ const wrapWithResponseAssertions = supertestObj => {
       return supertest(supertestObj.app)
         .get('/supertest-check-session')
         .set('Cookie', cookies(res))
-        .expect(200);
+        .expect(httpStatus.OK);
     }).then(res => {
       const currentSession = JSON.parse(res.text);
       return Promise.all([assertions(currentSession)]);
@@ -165,9 +165,10 @@ class TestStepDSL {
     this.step = constructorFrom(step);
     this.body = body;
     this[_middleware] = middleware;
-    this.viewDirs = [];
+    this.viewsDirs = [];
     this.steps = [];
     this.cookies = [];
+    this.globals = {};
   }
 
   static create(step) {
@@ -188,8 +189,13 @@ class TestStepDSL {
   }
 
   withField(field, value) {
-    const newBody = Object.assign({}, this.body, { [field]: value });
-    return new TestStepDSL(this.step, newBody, this[_middleware]);
+    Object.assign(this.body, { [field]: value });
+    return this;
+  }
+
+  withGlobal(field, value) {
+    Object.assign(this.globals, { [field]: value });
+    return this;
   }
 
   withSetup(setup) {
@@ -200,7 +206,7 @@ class TestStepDSL {
   }
 
   withViews(...viewDirs) {
-    this.viewsDirs = [...viewDirs, ...this.viewDirs];
+    this.viewsDirs = [...this.viewsDirs, ...viewDirs];
     return this;
   }
 
