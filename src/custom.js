@@ -7,7 +7,8 @@ const templates = [
   lookAndFeel.paths.templates,
   'views',
   'mocks',
-  'steps'
+  'steps',
+  'node_modules/reform-pattern-library/app/views/macros'
 ];
 
 const custom = step => {
