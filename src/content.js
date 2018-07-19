@@ -9,13 +9,14 @@ const templates = [
   lookAndFeel.paths.templates,
   'views',
   'mocks',
-  'steps'
+  'steps',
+  'node_modules/reform-pattern-library/app/views/macros'
 ];
 
 const content = (step, ignoreContent = []) => {
   const stepInstance = new step({ journey: {} });
   const removeIgnoredContent = key => {
-    return ignoreContent.includes(key);
+    return !ignoreContent.includes(key);
   };
 
   return testStep(step)
@@ -25,17 +26,16 @@ const content = (step, ignoreContent = []) => {
     .withViews(...templates, stepInstance.dirname)
     .get()
     .expect(httpStatus.OK)
-    .text(pageContent => {
+    .text((pageContent, contentKeys) => {
       const missingContent = [];
-      const contentKeys = stepInstance.content.keys
-        .filter(removeIgnoredContent);
-
-      contentKeys.forEach(key => {
-        const contentToTest = stepInstance.content[key].toString();
-        if (pageContent.indexOf(contentToTest) === -1) {
-          missingContent.push(key);
-        }
-      });
+      contentKeys
+        .filter(removeIgnoredContent)
+        .forEach(key => {
+          const contentToTest = stepInstance.content[key].toString();
+          if (pageContent.indexOf(contentToTest) === -1) {
+            missingContent.push(key);
+          }
+        });
 
       return expect(missingContent, 'The following content was not found in template').to.eql([]);
     });

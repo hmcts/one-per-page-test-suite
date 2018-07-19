@@ -9,7 +9,8 @@ const templates = [
   lookAndFeel.paths.templates,
   'views',
   'mocks',
-  'steps'
+  'steps',
+  'node_modules/reform-pattern-library/app/views/macros'
 ];
 
 const redirectWithField = (step, fields, nextStep) => {

@@ -92,6 +92,20 @@ const configureApp = stepDSL => {
     res.end(JSON.stringify(currentSession));
   });
 
+  app.use((req, res, next) => {
+    const instance = req.journey.instance(stepDSL.step);
+    const sendOriginal = res.send;
+    res.send = function send(body) {
+      const contentTransformed = [];
+      instance.content.keys.forEach(key => {
+        contentTransformed[key] = instance.content[key].toString();
+      });
+      stepDSL._contentTransformed = contentTransformed;
+      sendOriginal.call(this, body);
+    };
+    next();
+  });
+
   stepDSL[_middleware].forEach(_ => app.use(_));
   stepDSL.step.bind(app);
   stepDSL.steps.forEach(step => {
@@ -111,7 +125,7 @@ const supertestInstance = stepDSL => {
   return stepDSL[_supertest];
 };
 
-const wrapWithResponseAssertions = supertestObj => {
+const wrapWithResponseAssertions = (supertestObj, stepDSL) => {
   supertestObj.html = assertions => {
     return supertestObj.then(res => {
       const _window = domino.createWindow(res.text);
@@ -121,7 +135,7 @@ const wrapWithResponseAssertions = supertestObj => {
   };
   supertestObj.text = assertions => {
     return supertestObj.then(res => {
-      return assertions(res.text);
+      return assertions(res.text, stepDSL._contentTransformed);
     });
   };
   supertestObj.session = assertions => {
@@ -227,7 +241,7 @@ class TestStepDSL {
     if (this.cookies.length) {
       testExecution.set('Cookie', this.cookies.join(';'));
     }
-    return wrapWithResponseAssertions(testExecution);
+    return wrapWithResponseAssertions(testExecution, this);
   }
 
   asServer() {
