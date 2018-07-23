@@ -7101,9 +7101,9 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-"reform-pattern-library@https://github.com/hmcts/reform-pattern-library.git":
+"reform-pattern-library@https://github.com/dtaylor7/reform-pattern-library.git":
   version "1.0.0"
-  resolved "https://github.com/hmcts/reform-pattern-library.git#acb024bd1848f3abdcc64007252b261d0cc04e2d"
+  resolved "https://github.com/dtaylor7/reform-pattern-library.git#fd8966a0df4ea45994813b05c1e3cd535646829c"
   dependencies:
     body-parser "^1.18.2"
     browser-sync "^2.18.13"
