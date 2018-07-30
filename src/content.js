@@ -14,6 +14,8 @@ const templates = [
 ];
 
 const content = (step, ignoreContent = []) => {
+  ignoreContent.push('fields', 'errors');
+
   const stepInstance = new step({ journey: {} });
   const removeIgnoredContent = keys => {
     return Object.keys(keys)
@@ -33,8 +35,7 @@ const content = (step, ignoreContent = []) => {
       const missingContent = [];
       removeIgnoredContent(contentKeys)
         .forEach(key => {
-          const contentToTest = stepInstance.content[key].toString();
-          if (pageContent.indexOf(contentToTest) === -1) {
+          if (pageContent.indexOf(contentKeys[key]) === -1) {
             missingContent.push(key);
           }
         });

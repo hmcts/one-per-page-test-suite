@@ -11,7 +11,9 @@ const { RequestBoundJourney } = require('@hmcts/one-per-page/src/flow');
 const cookieParser = require('cookie-parser');
 const httpStatus = require('http-status-codes');
 const walkMap = require('./treeWalker');
+const Entities = require('html-entities').XmlEntities;
 
+const entities = new Entities();
 const truthies = ['true', 'True', 'TRUE', '1', 'yes', 'Yes', 'YES', 'y', 'Y'];
 const falsies = ['false', 'False', 'FALSE', '0', 'no', 'No', 'NO', 'n', 'N'];
 
@@ -134,7 +136,8 @@ const wrapWithResponseAssertions = (supertestObj, stepDSL) => {
   };
   supertestObj.text = assertions => {
     return supertestObj.then(res => {
-      return assertions(res.text, stepDSL._contentTransformed);
+      const text = entities.decode(res.text);
+      return assertions(text, stepDSL._contentTransformed);
     });
   };
   supertestObj.session = assertions => {
