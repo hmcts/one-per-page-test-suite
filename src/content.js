@@ -15,8 +15,11 @@ const templates = [
 
 const content = (step, ignoreContent = []) => {
   const stepInstance = new step({ journey: {} });
-  const removeIgnoredContent = key => {
-    return !ignoreContent.includes(key);
+  const removeIgnoredContent = keys => {
+    return Object.keys(keys)
+      .filter(key => {
+        return !ignoreContent.includes(key);
+      });
   };
 
   return testStep(step)
