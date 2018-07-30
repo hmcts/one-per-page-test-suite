@@ -28,8 +28,7 @@ const content = (step, ignoreContent = []) => {
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
       const missingContent = [];
-      contentKeys
-        .filter(removeIgnoredContent)
+      removeIgnoredContent(contentKeys)
         .forEach(key => {
           const contentToTest = stepInstance.content[key].toString();
           if (pageContent.indexOf(contentToTest) === -1) {
