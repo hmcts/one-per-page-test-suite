@@ -10,6 +10,7 @@ const { defined } = require('@hmcts/one-per-page/src/util/checks');
 const { RequestBoundJourney } = require('@hmcts/one-per-page/src/flow');
 const cookieParser = require('cookie-parser');
 const httpStatus = require('http-status-codes');
+const walkMap = require('./treeWalker');
 
 const truthies = ['true', 'True', 'TRUE', '1', 'yes', 'Yes', 'YES', 'y', 'Y'];
 const falsies = ['false', 'False', 'FALSE', '0', 'no', 'No', 'NO', 'n', 'N'];
@@ -96,11 +97,9 @@ const configureApp = stepDSL => {
     const instance = req.journey.instance(stepDSL.step);
     const sendOriginal = res.send;
     res.send = function send(body) {
-      const contentTransformed = [];
-      instance.content.keys.forEach(key => {
-        contentTransformed[key] = instance.content[key].toString();
+      stepDSL._contentTransformed = walkMap(instance.content.keys, path => {
+        return instance.content[path].toString();
       });
-      stepDSL._contentTransformed = contentTransformed;
       sendOriginal.call(this, body);
     };
     next();

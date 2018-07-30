@@ -13,6 +13,37 @@ const templates = [
   'node_modules/reform-pattern-library/app/views/macros'
 ];
 
+const testErrors = step => {
+  const request = testStep(step)
+    .withSetup(req => {
+      // on generate session once
+      if (!req.session.active()) {
+        req.session.generate();
+      }
+    })
+    .withViews(...templates);
+
+  const server = request.asServer();
+
+  return server
+    .post(step.path)
+    .redirects(1)
+    .expect(res => {
+      const pageContent = res.text;
+      const content = request._contentTransformed;
+
+      const missingContent = [];
+      Object.keys(content.errors)
+        .forEach(key => {
+          if (pageContent.indexOf(content.errors[key]) === -1) {
+            missingContent.push(key);
+          }
+        });
+
+      return expect(missingContent, 'The following errors were not found in template').to.eql([]);
+    });
+};
+
 const redirectWithField = (step, fields, nextStep) => {
   let postRequest = testStep(step)
     .withSetup(req => {
@@ -47,3 +78,5 @@ const rendersValues = (step, sessionData = {}) => {
 module.exports.redirectWithField = redirectWithField;
 
 module.exports.rendersValues = rendersValues;
+
+module.exports.testErrors = testErrors;
