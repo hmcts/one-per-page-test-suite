@@ -13,34 +13,54 @@ const templates = [
   'node_modules/reform-pattern-library/app/views/macros'
 ];
 
-const content = (step, ignoreContent = []) => {
-  ignoreContent.push('fields', 'errors');
+const content = (step, session, options = {}) => {
+  options.ignoreContent = options.ignoreContent || [];
+  options.specificContent = options.specificContent || [];
+  options.specificValues = options.specificValues || [];
+
+  options.ignoreContent.push('fields', 'errors');
 
   const stepInstance = new step({ journey: {} });
   const removeIgnoredContent = keys => {
     return Object.keys(keys)
       .filter(key => {
-        return !ignoreContent.includes(key);
+        if (options.specificContent.length) {
+          return options.specificContent.includes(key);
+        }
+        return !options.ignoreContent.includes(key);
       });
   };
 
   return testStep(step)
     .withSetup(req => {
-      return req.session.generate();
+      req.session.generate();
+      return Object.assign(req.session, session);
     })
     .withViews(...templates, stepInstance.dirname)
     .get()
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
-      const missingContent = [];
-      removeIgnoredContent(contentKeys)
-        .forEach(key => {
-          if (pageContent.indexOf(contentKeys[key]) === -1) {
-            missingContent.push(key);
+      if (!options.specificValues.length) {
+        const missingContent = [];
+        removeIgnoredContent(contentKeys)
+          .forEach(key => {
+            if (pageContent.indexOf(contentKeys[key]) === -1) {
+              missingContent.push(key);
+            }
+          });
+
+        return expect(missingContent, 'The following content was not found in template').to.eql([]);
+      }
+
+      const missingValues = [];
+      options.specificValues
+        .forEach(value => {
+          if (pageContent.indexOf(value) === -1) {
+            missingValues.push(value);
           }
         });
 
-      return expect(missingContent, 'The following content was not found in template').to.eql([]);
+      return expect(missingValues, 'The following values were not found in template').to.eql([]);
     });
 };
 

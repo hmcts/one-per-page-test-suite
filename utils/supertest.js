@@ -12,7 +12,9 @@ const cookieParser = require('cookie-parser');
 const httpStatus = require('http-status-codes');
 const walkMap = require('./treeWalker');
 const Entities = require('html-entities').XmlEntities;
+const path = require('path');
 
+const projectDir = path.resolve(path.dirname(require.main.filename), '../../../');
 const entities = new Entities();
 const truthies = ['true', 'True', 'TRUE', '1', 'yes', 'Yes', 'YES', 'y', 'Y'];
 const falsies = ['false', 'False', 'FALSE', '0', 'no', 'No', 'NO', 'n', 'N'];
@@ -50,13 +52,24 @@ function testApp(stepDSL) {
     }
   };
 
+  let filters = [];
+
+  // import filters from main project
+  try {
+    const allFilters = require(path.resolve(projectDir, 'views/filters')); // eslint-disable-line
+    filters = allFilters(); // eslint-disable-line
+  } catch (e) { console.log(e) } // eslint-disable-line
+
+  Object.assign(globals, stepDSL.globals);
+
   Object.assign(globals, stepDSL.globals);
 
   nunjucks(app, {
     autoescape: true,
     watch: true,
     noCache: true,
-    globals
+    globals,
+    filters
   });
 
   return app;

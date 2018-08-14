@@ -13,12 +13,13 @@ const templates = [
   'node_modules/reform-pattern-library/app/views/macros'
 ];
 
-const testErrors = step => {
+const testErrors = (step, session = {}) => {
   const request = testStep(step)
     .withSetup(req => {
       // on generate session once
       if (!req.session.active()) {
         req.session.generate();
+        Object.assign(req.session, session);
       }
     })
     .withViews(...templates);
