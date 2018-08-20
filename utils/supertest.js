@@ -112,9 +112,12 @@ const configureApp = stepDSL => {
     const instance = req.journey.instance(stepDSL.step);
     const sendOriginal = res.send;
     res.send = function send(body) {
-      stepDSL._contentTransformed = walkMap(instance.content.keys, path => {
-        return instance.content[path].toString();
+      stepDSL._contentTransformed = walkMap(instance.content.keys, p => {
+        return instance.content[p].toString();
       });
+      if (instance.answers) {
+        stepDSL._answer = instance.answers();
+      }
       sendOriginal.call(this, body);
     };
     next();
@@ -150,7 +153,7 @@ const wrapWithResponseAssertions = (supertestObj, stepDSL) => {
   supertestObj.text = assertions => {
     return supertestObj.then(res => {
       const text = entities.decode(res.text);
-      return assertions(text, stepDSL._contentTransformed);
+      return assertions(text, stepDSL._contentTransformed, stepDSL._answer);
     });
   };
   supertestObj.session = assertions => {

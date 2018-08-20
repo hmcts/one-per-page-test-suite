@@ -77,8 +77,23 @@ const rendersValues = (step, sessionData = {}) => {
     });
 };
 
+const answers = (step, sessionData = {}, results = {}, session = {}) => {
+  Object.assign(session, { [step.name]: sessionData })
+  return testStep(step)
+    .withSession(session)
+    .withViews(...templates)
+    .get()
+    .expect(httpStatus.OK)
+    .text((pageContent, contentKeys, answersResult) => {
+      expect(results.question).to.eql(answersResult.question.toString());
+      expect(results.answer).to.eql(answersResult.answer.toString());
+    });
+};
+
 module.exports.redirectWithField = redirectWithField;
 
 module.exports.rendersValues = rendersValues;
 
 module.exports.testErrors = testErrors;
+
+module.exports.answers = answers;
