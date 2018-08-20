@@ -3,7 +3,7 @@ const { expect } = require('../utils/chai');
 const hasMiddleware = (step, middlewaresToTest = []) => {
   const stepInstance = new step({ journey: {} });
   const middlewares = stepInstance.middleware.map(middleware => {
-    return middleware.toString();
+    return middleware && middleware.toString();
   });
   const findMissingMiddleware = middlewareToTest => {
     return !middlewares.includes(middlewareToTest.toString());

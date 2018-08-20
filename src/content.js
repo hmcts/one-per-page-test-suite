@@ -34,7 +34,7 @@ const content = (step, session, options = {}) => {
   return testStep(step)
     .withSetup(req => {
       req.session.generate();
-      return Object.assign(req.session, session);
+      return Object.assign(req.session, { entryPoint: step.name }, session);
     })
     .withViews(...templates, stepInstance.dirname)
     .get()

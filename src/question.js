@@ -19,7 +19,7 @@ const testErrors = (step, session = {}) => {
       // on generate session once
       if (!req.session.active()) {
         req.session.generate();
-        Object.assign(req.session, session);
+        Object.assign(req.session, { entryPoint: step.name }, session);
       }
     })
     .withViews(...templates);
@@ -48,7 +48,8 @@ const testErrors = (step, session = {}) => {
 const redirectWithField = (step, fields, nextStep) => {
   let postRequest = testStep(step)
     .withSetup(req => {
-      return req.session.generate();
+      req.session.generate();
+      Object.assign(req.session, { entryPoint: step.name });
     })
     .withViews(...templates);
 
