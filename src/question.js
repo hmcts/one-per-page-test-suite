@@ -37,6 +37,8 @@ const testErrors = (step, session = {}, fields = {}, options = {}) => {
       const pageContent = res.text;
       const content = request._contentTransformed;
 
+      console.log(pageContent);
+
       const missingContent = [];
       const additionalContent = [];
       Object.keys(content.errors)
