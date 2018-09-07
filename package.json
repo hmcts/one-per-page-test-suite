@@ -8,7 +8,7 @@
   "dependencies": {
     "@hmcts/eslint-config": "^1.3.0",
     "@hmcts/look-and-feel": "^1.13.3",
-    "@hmcts/one-per-page": "https://github.com/hmcts/one-per-page#6bb0d8f042c3a223a94316141bae630a9cc79bb1",
+    "@hmcts/one-per-page": "https://github.com/hmcts/one-per-page#aee994009d66efd2341a3bc5ddb0b5748e52cbf8",
     "@hmcts/tech-docs": "^0.4.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
