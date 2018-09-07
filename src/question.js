@@ -13,7 +13,9 @@ const templates = [
   'node_modules/reform-pattern-library/app/views/macros'
 ];
 
-const testErrors = (step, session = {}) => {
+const testErrors = (step, session = {}, fields = {}, options = {}) => {
+  options.onlyErrors = options.onlyErrors || [];
+
   const request = testStep(step)
     .withSetup(req => {
       // on generate session once
@@ -28,19 +30,35 @@ const testErrors = (step, session = {}) => {
 
   return server
     .post(step.path)
+    .type('form')
+    .send(fields)
     .redirects(1)
     .expect(res => {
       const pageContent = res.text;
       const content = request._contentTransformed;
 
       const missingContent = [];
+      const additionalContent = [];
       Object.keys(content.errors)
         .forEach(key => {
-          if (pageContent.indexOf(content.errors[key]) === -1) {
+          const onlyErrors = options.onlyErrors.length;
+          const contentIsInPage = pageContent
+            .indexOf(content.errors[key]) !== -1;
+          const keyInOnlyErrors = options.onlyErrors.includes(key);
+          if (onlyErrors) {
+            if (keyInOnlyErrors && !contentIsInPage) {
+              missingContent.push(key);
+            } else if (!keyInOnlyErrors && contentIsInPage) {
+              additionalContent.push(key);
+            }
+          } else if (!contentIsInPage) {
             missingContent.push(key);
           }
         });
 
+      if (additionalContent.length) {
+        return expect(additionalContent, 'Errors were found in template when they shouldnt be there').to.eql([]);
+      }
       return expect(missingContent, 'The following errors were not found in template').to.eql([]);
     });
 };
@@ -77,16 +95,33 @@ const rendersValues = (step, sessionData = {}) => {
     });
 };
 
-const answers = (step, sessionData = {}, results = {}, session = {}) => {
-  Object.assign(session, { [step.name]: sessionData })
+const answers = (step, sessionData = {}, expectedContent = [], session = {}) => {
+  Object.assign(session, { [step.name]: sessionData });
   return testStep(step)
     .withSession(session)
     .withViews(...templates)
     .get()
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys, answersResult) => {
-      expect(results.question).to.eql(answersResult.question.toString());
-      expect(results.answer).to.eql(answersResult.answer.toString());
+      let resultsContent = '';
+      if (Array.isArray(answersResult)) {
+        answersResult.forEach(result => {
+          resultsContent += result.question.toString();
+          resultsContent += result.answer.toString();
+        });
+      } else {
+        resultsContent += answersResult.question.toString();
+        resultsContent += answersResult.answer.toString();
+      }
+
+      const missingContent = [];
+
+      expectedContent.forEach(content => {
+        if (resultsContent.indexOf(content) === -1) {
+          missingContent.push(content);
+        }
+      });
+      return expect(missingContent, 'Following content was not found in the answers').to.eql([]);
     });
 };
 
