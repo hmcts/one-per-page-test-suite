@@ -37,9 +37,9 @@
     webpack "^3.4.1"
     webpack-dev-middleware "^2.0.4"
 
-"@hmcts/one-per-page@https://github.com/hmcts/one-per-page#744a2ac087bbdd5686bfb5657de796a454b40c5d":
-  version "3.6.1"
-  resolved "https://github.com/hmcts/one-per-page#744a2ac087bbdd5686bfb5657de796a454b40c5d"
+"@hmcts/one-per-page@https://github.com/hmcts/one-per-page#64cd25335bf745ed70f25eda4465069c3ae9d297":
+  version "4.0.1"
+  resolved "https://github.com/hmcts/one-per-page#64cd25335bf745ed70f25eda4465069c3ae9d297"
   dependencies:
     "@log4js-node/log4js-api" "^1.0.0"
     body-parser "^1.18.2"
