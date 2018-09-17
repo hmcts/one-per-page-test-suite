@@ -62,8 +62,6 @@ function testApp(stepDSL) {
 
   Object.assign(globals, stepDSL.globals);
 
-  Object.assign(globals, stepDSL.globals);
-
   nunjucks(app, {
     autoescape: true,
     watch: true,
@@ -81,6 +79,14 @@ const _middleware = Symbol('middleware');
 
 const configureApp = stepDSL => {
   if (stepDSL[_app]) return stepDSL[_app];
+
+  // import filters from main project
+  let projectSteps = [];
+  try {
+    const allSteps = require(path.resolve(projectDir, 'steps')); // eslint-disable-line
+    projectSteps = allSteps(); // eslint-disable-line
+  } catch (e) { console.log(e) } // eslint-disable-line
+  stepDSL.steps = [...projectSteps, ...stepDSL.steps];
 
   const app = testApp(stepDSL);
   stepDSL[_app] = app;
