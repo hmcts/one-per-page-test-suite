@@ -3,6 +3,8 @@ const httpStatus = require('http-status-codes');
 const { expect } = require('../utils/chai');
 const govukTemplate = require('@hmcts/look-and-feel/src/sources/govukTemplate');
 const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
+const zepto = require('zepto-node');
+const domino = require('domino');
 
 const templates = [
   govukTemplate.paths.templates,
@@ -34,7 +36,10 @@ const testErrors = (step, session = {}, fields = {}, options = {}) => {
     .send(fields)
     .redirects(1)
     .expect(res => {
-      const pageContent = res.text;
+      const _window = domino.createWindow(res.text);
+      const $ = zepto(_window);
+      const pageContent = $('body').text();
+
       const content = request._contentTransformed;
 
       const missingContent = [];

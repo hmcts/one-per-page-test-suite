@@ -17,6 +17,7 @@ const content = (step, session, options = {}) => {
   options.ignoreContent = options.ignoreContent || [];
   options.specificContent = options.specificContent || [];
   options.specificValues = options.specificValues || [];
+  options.specificContentToNotExist = options.specificContentToNotExist || [];
 
   options.ignoreContent.push('fields', 'errors');
 
@@ -40,6 +41,19 @@ const content = (step, session, options = {}) => {
     .get()
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
+      if (options.specificContentToNotExist.length) {
+        const contentExists = [];
+        options.specificContentToNotExist
+          .forEach(value => {
+            if (pageContent.indexOf(value) !== -1) {
+              contentExists.push(value);
+            }
+          });
+        if (contentExists.legnth) {
+          expect(contentExists, 'The following content was found in template when it wasnt supposed to be').to.eql([]);
+        }
+      }
+
       if (!options.specificValues.length) {
         const missingContent = [];
         removeIgnoredContent(contentKeys)
