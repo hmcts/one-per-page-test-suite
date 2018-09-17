@@ -77,16 +77,18 @@ const _supertest = Symbol('supertest');
 const _app = Symbol('app');
 const _middleware = Symbol('middleware');
 
-const configureApp = stepDSL => {
+const configureApp = (stepDSL, includeRootSteps = true) => {
   if (stepDSL[_app]) return stepDSL[_app];
 
+  if (includeRootSteps) {
   // import filters from main project
-  let projectSteps = [];
-  try {
-    const allSteps = require(path.resolve(projectDir, 'steps')); // eslint-disable-line
-    projectSteps = allSteps(); // eslint-disable-line
-  } catch (e) { console.log(e) } // eslint-disable-line
-  stepDSL.steps = [...projectSteps, ...stepDSL.steps];
+    let projectSteps = [];
+    try {
+      const allSteps = require(path.resolve(projectDir, 'steps')); // eslint-disable-line
+      projectSteps = allSteps(); // eslint-disable-line
+    } catch (e) { console.log(e) } // eslint-disable-line
+    stepDSL.steps = [...projectSteps, ...stepDSL.steps];
+  }
 
   const app = testApp(stepDSL);
   stepDSL[_app] = app;
@@ -269,7 +271,7 @@ class TestStepDSL {
   }
 
   asServer() {
-    configureApp(this);
+    configureApp(this, false);
     return supertest.agent(this[_app]);
   }
 
