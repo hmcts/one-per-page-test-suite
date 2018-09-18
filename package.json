@@ -29,7 +29,7 @@
     "html-entities": "^1.2.1",
     "jquery": "^3.2.1",
     "mocha": "^4.0.1",
-    "nyc": "^11.1.0",
+    "nyc": "^13.0.1",
     "proxyquire": "^1.8.0",
     "reform-pattern-library": "https://github.com/dtaylor7/reform-pattern-library.git",
     "sinon": "^5.0.7",
@@ -41,7 +41,8 @@
     "node": ">=8.9.4"
   },
   "scripts": {
-    "lint": "NODE_PATH=. eslint ."
+    "lint": "eslint .",
+    "test": "NODE_PATH=. NODE_ENV=testing nyc --reporter=text-summary mocha --exit 'test/**/*.test.js'"
   },
   "pre-commit": [
     "lint"
