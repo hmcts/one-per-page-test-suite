@@ -18,6 +18,7 @@ const projectDir = path.resolve(path.dirname(require.main.filename), '../../../'
 const entities = new Entities();
 const truthies = ['true', 'True', 'TRUE', '1', 'yes', 'Yes', 'YES', 'y', 'Y'];
 const falsies = ['false', 'False', 'FALSE', '0', 'no', 'No', 'NO', 'n', 'N'];
+const oppTimeout = 51;
 
 function testApp(stepDSL) {
   const app = express();
@@ -92,6 +93,18 @@ const configureApp = (stepDSL, includeRootSteps = true) => {
 
   const app = testApp(stepDSL);
   stepDSL[_app] = app;
+
+  // add timeout to allow opp to get up and running
+  app.use((req, res, next) => {
+    if (app.hasHadRequest) {
+      next();
+    } else {
+      setTimeout(() => {
+        app.hasHadRequest = true;
+        next();
+      }, oppTimeout);
+    }
+  });
 
   app.use((req, res, next) => {
     // setup req.journey (added by Journey)
