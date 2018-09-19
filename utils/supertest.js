@@ -18,7 +18,7 @@ const projectDir = path.resolve(path.dirname(require.main.filename), '../../../'
 const entities = new Entities();
 const truthies = ['true', 'True', 'TRUE', '1', 'yes', 'Yes', 'YES', 'y', 'Y'];
 const falsies = ['false', 'False', 'FALSE', '0', 'no', 'No', 'NO', 'n', 'N'];
-const oppTimeout = 51;
+const oppTimeout = 100;
 
 function testApp(stepDSL) {
   const app = express();
