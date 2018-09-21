@@ -49,9 +49,21 @@ const content = (step, session, options = {}) => {
               contentExists.push(value);
             }
           });
-        if (contentExists.legnth) {
+        if (contentExists.length) {
           expect(contentExists, 'The following content was found in template when it wasnt supposed to be').to.eql([]);
         }
+      }
+
+      if (options.specificContent.length) {
+        const missingContent = [];
+        options.specificContent
+          .forEach(key => {
+            if (pageContent.indexOf(contentKeys[key]) === -1) {
+              missingContent.push(key);
+            }
+          });
+
+        return expect(missingContent, 'The following content was not found in template').to.eql([]);
       }
 
       if (!options.specificValues.length) {
