@@ -1,5 +1,5 @@
 <a name="2.0.1"></a>
-## 2.0.0 (2018-09-21)
+## 2.0.1 (2018-09-21)
 
 * Fix incorrect check for specificContent option
 
