@@ -58,7 +58,7 @@ const content = (step, session, options = {}) => {
         const missingContent = [];
         options.specificContent
           .forEach(key => {
-            if (pageContent.indexOf(contentKeys[key]) === -1) {
+            if (!contentKeys.hasOwnProperty(key)) {
               missingContent.push(key);
             }
           });
