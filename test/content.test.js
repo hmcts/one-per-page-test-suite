@@ -54,18 +54,18 @@ describe(modulePath, () => {
     });
   });
 
-  describe('specificContentToNotExist option', () => {
+  describe('specificValuesToNotExist option', () => {
     it('checks specified value is not present', () => {
       return content(SampleStep, {}, {
         ignoreContent: ['missingValue'],
-        specificContentToNotExist: ['blah']
+        specificValuesToNotExist: ['blah']
       });
     });
 
     it('fails if specified content is present', () => {
       return expect(content(SampleStep, {}, {
         ignoreContent: ['missingValue'],
-        specificContentToNotExist: ['page title']
+        specificValuesToNotExist: ['page title']
       }))
         .to
         .be

@@ -17,7 +17,7 @@ const content = (step, session, options = {}) => {
   options.ignoreContent = options.ignoreContent || [];
   options.specificContent = options.specificContent || [];
   options.specificValues = options.specificValues || [];
-  options.specificContentToNotExist = options.specificContentToNotExist || [];
+  options.specificValuesToNotExist = options.specificValuesToNotExist || [];
 
   options.ignoreContent.push('fields', 'errors');
 
@@ -41,9 +41,9 @@ const content = (step, session, options = {}) => {
     .get()
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
-      if (options.specificContentToNotExist.length) {
+      if (options.specificValuesToNotExist.length) {
         const contentExists = [];
-        options.specificContentToNotExist
+        options.specificValuesToNotExist
           .forEach(value => {
             if (pageContent.indexOf(value) !== -1) {
               contentExists.push(value);
