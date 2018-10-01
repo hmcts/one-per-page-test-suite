@@ -68,11 +68,11 @@ const testErrors = (step, session = {}, fields = {}, options = {}) => {
     });
 };
 
-const redirectWithField = (step, fields, nextStep) => {
+const redirectWithField = (step, fields, nextStep, session = {}) => {
   let postRequest = testStep(step)
     .withSetup(req => {
       req.session.generate();
-      Object.assign(req.session, { entryPoint: step.name });
+      Object.assign(req.session, { entryPoint: step.name }, session);
     })
     .withViews(...templates);
 
