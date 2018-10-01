@@ -18,7 +18,7 @@ const projectDir = path.resolve(path.dirname(require.main.filename), '../../../'
 const entities = new Entities();
 const truthies = ['true', 'True', 'TRUE', '1', 'yes', 'Yes', 'YES', 'y', 'Y'];
 const falsies = ['false', 'False', 'FALSE', '0', 'no', 'No', 'NO', 'n', 'N'];
-const oppTimeout = 100;
+const oppTimeout = 50;
 
 function testApp(stepDSL) {
   const app = express();
@@ -94,18 +94,6 @@ const configureApp = (stepDSL, includeRootSteps = true) => {
   const app = testApp(stepDSL);
   stepDSL[_app] = app;
 
-  // add timeout to allow opp to get up and running
-  app.use((req, res, next) => {
-    if (app.hasHadRequest) {
-      next();
-    } else {
-      setTimeout(() => {
-        app.hasHadRequest = true;
-        next();
-      }, oppTimeout);
-    }
-  });
-
   app.use((req, res, next) => {
     // setup req.journey (added by Journey)
     const steps = { [stepDSL.step.name]: stepDSL.step };
@@ -114,6 +102,32 @@ const configureApp = (stepDSL, includeRootSteps = true) => {
     });
     req.journey = new RequestBoundJourney(req, res, steps, {});
     next();
+  });
+
+  const stepsReadyPromises = req => {
+    const allPromises = [];
+    Object.keys(req.journey.steps).forEach(stepName => {
+      const step = req.journey.instance(req.journey.steps[stepName]);
+      allPromises.push(step.ready());
+    });
+    return Promise.all(allPromises);
+  };
+
+  const checkStepsReady = (req, next) => {
+    return stepsReadyPromises(req)
+      .then(() => {
+        next();
+      })
+      .catch(() => {
+        setTimeout(() => {
+          checkStepsReady(req, next);
+        }, oppTimeout);
+      });
+  };
+
+  // add timeout to allow opp to get up and running
+  app.use((req, res, next) => {
+    checkStepsReady(req, next);
   });
 
   app.use(session({ baseUrl: '127.0.0.1', secret: 'keyboard cat' }));
