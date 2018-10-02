@@ -87,9 +87,10 @@ const redirectWithField = (step, fields, nextStep, session = {}) => {
     .expect(httpStatus.MOVED_TEMPORARILY);
 };
 
-const rendersValues = (step, sessionData = {}) => {
+const rendersValues = (step, sessionData = {}, session = {}) => {
+  Object.assign(session, { [step.name]: sessionData });
   return testStep(step)
-    .withSession({ [step.name]: sessionData })
+    .withSession(session)
     .withViews(...templates)
     .get()
     .expect(httpStatus.OK)
