@@ -3,6 +3,7 @@ const modulePath = 'src/content';
 const content = require(modulePath);
 const SampleStep = require('./steps/Sample.step');
 const chai = require('chai');
+const itParam = require('../utils/itParam');
 
 const expect = chai.expect;
 
@@ -38,6 +39,11 @@ describe(modulePath, () => {
         .to
         .be
         .rejectedWith(Error);
+    });
+    
+    const params = ['hello', 'page title'];
+    itParam('checks param value ${value} to be present', params, param => {
+      return content(SampleStep, {}, { specificValues: [param] });
     });
   });
 

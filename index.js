@@ -5,6 +5,7 @@ const interstitial = require('./src/interstitial');
 const question = require('./src/question');
 const redirect = require('./src/redirect');
 const chai = require('./utils/chai');
+const itParam = require('./utils/itParam');
 const requireNoCache = require('./utils/requireNoCache');
 
 module.exports.content = content;
@@ -22,6 +23,8 @@ module.exports.interstitial = interstitial;
 module.exports.redirect = redirect;
 
 module.exports.question = question;
+
+module.exports.itParam = itParam;
 
 module.exports.custom = custom;
 
