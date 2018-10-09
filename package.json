@@ -3,7 +3,7 @@
   "description": "Testing framwork for @hmcts/one-per-page",
   "homepage": "https://github.com/hmcts/one-per-page-test-suite#readme",
   "main": "./index.js",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hmcts/one-per-page-test-suite.git"
@@ -29,6 +29,7 @@
     "html-entities": "^1.2.1",
     "jquery": "^3.2.1",
     "mocha": "^4.0.1",
+    "mocha-param": "^2.0.0",
     "nyc": "^13.0.1",
     "proxyquire": "^1.8.0",
     "reform-pattern-library": "https://github.com/dtaylor7/reform-pattern-library.git",
