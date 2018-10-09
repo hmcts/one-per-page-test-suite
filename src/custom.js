@@ -18,4 +18,8 @@ const custom = step => {
     .withViews(...templates, stepInstance.dirname);
 };
 
-module.exports = custom;
+const stepAsInstance = (step, session = {}) => {
+  return new step({ journey: {}, session });
+};
+
+module.exports = { custom, stepAsInstance };
