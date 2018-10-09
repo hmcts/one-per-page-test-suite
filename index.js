@@ -1,5 +1,5 @@
 const content = require('./src/content');
-const custom = require('./src/custom');
+const { custom, verifyResult } = require('./src/custom');
 const middleware = require('./src/middleware');
 const interstitial = require('./src/interstitial');
 const question = require('./src/question');
@@ -24,3 +24,5 @@ module.exports.redirect = redirect;
 module.exports.question = question;
 
 module.exports.custom = custom;
+
+module.exports.verifyResult = verifyResult;

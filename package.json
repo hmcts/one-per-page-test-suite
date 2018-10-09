@@ -3,7 +3,7 @@
   "description": "Testing framwork for @hmcts/one-per-page",
   "homepage": "https://github.com/hmcts/one-per-page-test-suite#readme",
   "main": "./index.js",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hmcts/one-per-page-test-suite.git"
@@ -43,7 +43,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "NODE_PATH=. NODE_ENV=testing nyc --reporter=text-summary mocha --exit 'test/**/*.test.js'"
-  },
+},
   "pre-commit": [
     "lint"
   ],
