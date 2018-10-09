@@ -1,5 +1,5 @@
 const content = require('./src/content');
-const { custom, verifyResult } = require('./src/custom');
+const { custom, stepAsInstance } = require('./src/custom');
 const middleware = require('./src/middleware');
 const interstitial = require('./src/interstitial');
 const question = require('./src/question');
@@ -25,4 +25,4 @@ module.exports.question = question;
 
 module.exports.custom = custom;
 
-module.exports.verifyResult = verifyResult;
+module.exports.stepAsInstance = stepAsInstance;

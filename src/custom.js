@@ -1,7 +1,6 @@
 const { testStep } = require('../utils/supertest');
 const govukTemplate = require('@hmcts/look-and-feel/src/sources/govukTemplate');
 const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
-const { expect } = require('../utils/chai');
 
 const templates = [
   govukTemplate.paths.templates,
@@ -19,10 +18,8 @@ const custom = step => {
     .withViews(...templates, stepInstance.dirname);
 };
 
-const verifyResult = (step, methodName, expectedContent, session = {}) => {
-  const stepInstance = new step({ journey: {}, session });
-  const result = Reflect.get(stepInstance, methodName);
-  expect(result).to.deep.equal(expectedContent);
+const stepAsInstance = (step, session = {}) => {
+  return new step({ journey: {}, session });
 };
 
-module.exports = { custom, verifyResult };
+module.exports = { custom, stepAsInstance };
