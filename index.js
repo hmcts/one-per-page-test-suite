@@ -7,6 +7,7 @@ const redirect = require('./src/redirect');
 const chai = require('./utils/chai');
 const itParam = require('./utils/itParam');
 const requireNoCache = require('./utils/requireNoCache');
+const journey = require('./src/journey');
 
 module.exports.content = content;
 
@@ -29,3 +30,5 @@ module.exports.itParam = itParam;
 module.exports.custom = custom;
 
 module.exports.stepAsInstance = stepAsInstance;
+
+module.exports.journey = journey;

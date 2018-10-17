@@ -82,7 +82,7 @@ const configureApp = (stepDSL, includeRootSteps = true) => {
   if (stepDSL[_app]) return stepDSL[_app];
 
   if (includeRootSteps) {
-  // import filters from main project
+    // import filters from main project
     let projectSteps = [];
     try {
       const allSteps = require(path.resolve(projectDir, 'steps')); // eslint-disable-line
@@ -298,7 +298,7 @@ class TestStepDSL {
   }
 
   asServer() {
-    configureApp(this, false);
+    configureApp(this);
     return supertest.agent(this[_app]);
   }
 
