@@ -297,8 +297,8 @@ class TestStepDSL {
     return wrapWithResponseAssertions(testExecution, this);
   }
 
-  asServer() {
-    configureApp(this);
+  asServer(includeRootSteps = false) {
+    configureApp(this, includeRootSteps);
     return supertest.agent(this[_app]);
   }
 
