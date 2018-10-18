@@ -21,7 +21,7 @@ const test = steps => {
   });
 
   const server = custom(steps[0].step)
-    .asServer();
+    .asServer(true);
 
   const testPage = (fromStep, toStep) => {
     it(`Renders ${fromStep.step.name} step`, () => {
