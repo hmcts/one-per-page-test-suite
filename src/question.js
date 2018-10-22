@@ -29,7 +29,7 @@ const testErrors = (step, session = {}, fields = {}, options = {}) => {
     })
     .withViews(...templates);
 
-  const server = request.asServer();
+  const server = request.asServer(true);
 
   return server
     .post(step.path)
