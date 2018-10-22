@@ -1,6 +1,12 @@
 {
   "en": {
     "title": "page title",
-    "missingValue": "expected to be missing from template"
+    "missingValue": "expected to be missing from template",
+    "nested": {
+      "depth": {
+        "heading": "nested depth rendering test"
+      }
+    },
+    "dynamicContent": "{{ session.myString }}"
   }
 }
