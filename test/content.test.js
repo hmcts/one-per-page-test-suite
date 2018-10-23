@@ -61,6 +61,19 @@ describe(modulePath, () => {
     });
   });
 
+  describe('specificContentToNotExist option', () => {
+    it('checks specified content to not be present', () => {
+      return content(SampleStep, {}, { specificContentToNotExist: ['contentThatDoesNotExsist'] });
+    });
+
+    it('fails if specified content is present', () => {
+      return expect(content(SampleStep, {}, { specificContentToNotExist: ['title'] }))
+        .to
+        .be
+        .rejectedWith(Error);
+    });
+  });
+
   describe('specificValuesToNotExist option', () => {
     it('checks specified value is not present', () => {
       return content(SampleStep, {}, {
