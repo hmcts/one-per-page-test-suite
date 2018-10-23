@@ -3,6 +3,7 @@ const govukTemplate = require('@hmcts/look-and-feel/src/sources/govukTemplate');
 const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
 const { expect } = require('../utils/chai');
 const httpStatus = require('http-status-codes');
+const { get } = require('lodash');
 
 const templates = [
   govukTemplate.paths.templates,
@@ -59,7 +60,8 @@ const content = (step, session, options = {}) => {
         const missingContent = [];
         options.specificContent
           .forEach(key => {
-            if (!contentKeys.hasOwnProperty(key)) {
+            const contentValue = get(contentKeys, key);
+            if (pageContent.indexOf(contentValue) === -1) {
               missingContent.push(key);
             }
           });

@@ -1,8 +1,12 @@
-const { ExitPoint } = require('@hmcts/one-per-page');
+const { Question } = require('@hmcts/one-per-page');
 
-class SampleStep extends ExitPoint {
+class SampleStep extends Question {
   static get path() {
     return '/';
+  }
+
+  get session() {
+    return this.req.session;
   }
 }
 

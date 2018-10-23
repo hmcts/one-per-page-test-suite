@@ -31,16 +31,17 @@ describe(modulePath, () => {
 
   describe('specificValues option', () => {
     it('checks specified value to be present', () => {
-      return content(SampleStep, {}, { specificValues: ['hello'] });
+      const session = { myString: 'session value' };
+      return content(SampleStep, session, { specificValues: ['hello', 'session value'] });
     });
 
     it('fails if specified value is not present', () => {
-      return expect(content(SampleStep, {}, { specificValues: ['blah'] }))
+      return expect(content(SampleStep, {}, { specificValues: ['blah', 'session value'] }))
         .to
         .be
         .rejectedWith(Error);
     });
-    
+
     const params = ['hello', 'page title'];
     itParam('checks param value ${value} to be present', params, param => {
       return content(SampleStep, {}, { specificValues: [param] });
@@ -49,7 +50,7 @@ describe(modulePath, () => {
 
   describe('specificContent option', () => {
     it('checks specified value to be present', () => {
-      return content(SampleStep, {}, { specificContent: ['title'] });
+      return content(SampleStep, {}, { specificContent: ['title', 'nested.depth.heading', 'dynamicContent'] });
     });
 
     it('fails if specified content is not present', () => {
