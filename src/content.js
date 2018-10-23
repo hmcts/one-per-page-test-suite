@@ -44,16 +44,29 @@ const content = (step, session, options = {}) => {
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
       if (options.specificValuesToNotExist.length) {
-        const contentExists = [];
+        const valueExists = [];
         options.specificValuesToNotExist
           .forEach(value => {
             if (pageContent.indexOf(value) !== -1) {
-              contentExists.push(value);
+              valueExists.push(value);
             }
           });
-        if (contentExists.length) {
-          expect(contentExists, 'The following content was found in template when it wasnt supposed to be').to.eql([]);
+        if (valueExists.length) {
+          expect(valueExists, 'The following content was found in template when it wasnt supposed to be').to.eql([]);
         }
+      }
+
+      if (options.specificContentToNotExist.length) {
+        const contentExists = [];
+        options.specificContentToNotExist
+          .forEach(key => {
+            const contentValue = get(contentKeys, key);
+            if (pageContent.indexOf(contentValue) !== -1) {
+              contentExists.push(key);
+            }
+          });
+
+        return expect(contentExists, 'The following content should not be in the template').to.eql([]);
       }
 
       if (options.specificContent.length) {
