@@ -20,6 +20,7 @@ const content = (step, session, options = {}) => {
   options.specificContent = options.specificContent || [];
   options.specificValues = options.specificValues || [];
   options.specificValuesToNotExist = options.specificValuesToNotExist || [];
+  options.specificContentToNotExist = options.specificContentToNotExist || [];
 
   options.ignoreContent.push('fields', 'errors');
 
