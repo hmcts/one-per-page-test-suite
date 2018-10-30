@@ -10,7 +10,7 @@ const expect = chai.expect;
 describe(modulePath, () => {
   describe('ignoreContent option', () => {
     it('ignores specified content', () => {
-      return content(SampleStep, {}, { ignoreContent: ['missingValue'] });
+      return content(SampleStep, {}, { ignoreContent: ['missingValue', 'nested'] });
     });
 
     it('checks specified content to be present but ignores others', () => {
@@ -77,14 +77,14 @@ describe(modulePath, () => {
   describe('specificValuesToNotExist option', () => {
     it('checks specified value is not present', () => {
       return content(SampleStep, {}, {
-        ignoreContent: ['missingValue'],
+        ignoreContent: ['missingValue', 'nested'],
         specificValuesToNotExist: ['blah']
       });
     });
 
     it('fails if specified content is present', () => {
       return expect(content(SampleStep, {}, {
-        ignoreContent: ['missingValue'],
+        ignoreContent: ['missingValue', 'nested'],
         specificValuesToNotExist: ['page title']
       }))
         .to
