@@ -44,7 +44,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "NODE_PATH=. NODE_ENV=testing nyc --reporter=text-summary mocha --exit 'test/**/*.test.js'"
+    "test": "NODE_PATH=. nyc --reporter=text-summary mocha --exit 'test/**/*.test.js'"
   },
   "pre-commit": [
     "lint"
@@ -52,5 +52,8 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "config": "^2.0.1"
   }
 }
