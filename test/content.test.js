@@ -30,6 +30,10 @@ describe(modulePath, () => {
 
 
   describe('specificValues option', () => {
+    it('checks if session values are present', () => {
+      const session = { myString: 'session value' };
+      return content(SampleStep, session, { specificValues: ['hello', 'session value'] });
+    });
 
     it('fails if specified value is not present', () => {
       return expect(content(SampleStep, {}, { specificValues: ['blah', 'session value'] }))
