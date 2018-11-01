@@ -1,11 +1,1 @@
 language: node_js
-node_js:
-- stable
-deploy:
-  provider: npm
-  email: jenkins-reform@HMCTS.NET
-  api_key:
-    secure: ZkhwBNIlg0ll0Ar7JziQ5WOpUqgbcsaUuOFVPCl61Vl4hTRXTDbptGExzIPPLzG4OHa07cMtl+l7QQQuYhj3IiTZaQ+AlTSwtHbmgjsQbacyxIaWJrWDaKKVjff3ZTSmWGJOt0GYCZrWUDZ8/bdbylLza74Kjc1MJOeyyKGk4CrEwzljdL015c4BkykD1Bsee9u+3GmWS4UlckHQXitzQFzgHMgIRJWtTT2gUNnHuBeA1KGRRvmZCGv1piJMfYUgFvfa1cFs9uSBME17Bltge9HTO2WxpyIw6v1zRzFGvbHPFgz4l/erfGtuAV3HU+CX19OLOekDkXFbVbo/XDsbGIWeXViZbh+HHuHWUXlTAUxgrORfVord3lBBL6Q1xECLhAC54fSR9rrG9gqNO2nskMKs8TEWZgpjvs3JHDQCxJrVwq4SPV5XI44/PHffMAJngb7CBtceHQDCU6wVLlJsOpHjQeYS3Sjp6WsILzJb/I6jrQknKgbd7iAFWp268Wzkgu57CvZSh7YaHdU4cae4qVqgnOBBlNitg4dEAV3w2MNFYo5f4W8Hq2jSik274oFdwe4TvpxEIejWYhuxMQShSJOuPR7usmJ4sb0rRe/YYsTbteH1z6+ag7k7dBRZN7unKk+9+E6RF4dbbFDjsCUk6v3xGkfaHNCguYlNs9t5scM=
-  on:
-    tags: true
-    repo: hmcts/one-per-page-test-suite
