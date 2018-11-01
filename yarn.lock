@@ -127,10 +127,10 @@
     webpack "^3.4.1"
     webpack-dev-middleware "^2.0.4"
 
-"@hmcts/one-per-page@^4.0.4":
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/@hmcts/one-per-page/-/one-per-page-4.0.4.tgz#421959b6236dc48361882d335bf18e388233d31b"
-  integrity sha512-HvHoaz4hvJ2hGfDE63OfERJAzV2/rJEfpPMmZabG0YGnxozmCBghFg2OyVmpSEfw6cRsLXnCZB8OvCHza3LaeA==
+"@hmcts/one-per-page@^4.0.7":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@hmcts/one-per-page/-/one-per-page-4.0.7.tgz#53ab451b0cadaf9cf55b6c8cb0dab6fed016ae64"
+  integrity sha512-8XRcKHQbX33naz/n8c4OmKgLrxC6qmLrar/W2xcYMuDo+DLj9TxyBIgVbj7Gg4MHzYg65dthCYAJGau6GFc7lQ==
   dependencies:
     "@log4js-node/log4js-api" "^1.0.0"
     body-parser "^1.18.2"
@@ -2203,6 +2203,13 @@ config@^1.26.1, config@^1.28.1:
   version "1.31.0"
   resolved "https://registry.yarnpkg.com/config/-/config-1.31.0.tgz#ab08aeba6536015d220cd0afe14b3e0501082542"
   integrity sha512-Ep/l9Rd1J9IPueztJfpbOqVzuKHQh4ZODMNt9xqTYdBBNRXbV4oTu34kCkkfdRVcDq0ohtpaeXGgb+c0LQxFRA==
+  dependencies:
+    json5 "^1.0.1"
+
+config@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/config/-/config-2.0.1.tgz#995ccc8175460578d646ac0a2e4018ffa44ca046"
+  integrity sha512-aTaviJnC8ZjQYx8kQf4u6tWqIxWolyQQ3LqXgnCLAsIb78JrUshHG0YuzIarzTaVVe1Pazms3TXImfYra8UsyQ==
   dependencies:
     json5 "^1.0.1"
 
@@ -6062,7 +6069,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.4, lodash@^4.3.0, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.3.0, lodash@~4.17.10:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
