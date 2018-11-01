@@ -1,4 +1,4 @@
-const modulePath = 'src/content';
+const modulePath = '../src/content';
 
 const content = require(modulePath);
 const SampleStep = require('./steps/Sample.step');
