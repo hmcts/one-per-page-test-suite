@@ -62,7 +62,7 @@ const content = (step, session, options = {}) => {
         options.specificContentToNotExist
           .forEach(key => {
             const contentValue = get(contentKeys, key);
-            if (pageContent.indexOf(contentValue) !== -1) {
+            if (contentValue && pageContent.indexOf(contentValue) !== -1) {
               contentExists.push(key);
             }
           });
@@ -75,7 +75,7 @@ const content = (step, session, options = {}) => {
         options.specificContent
           .forEach(key => {
             const contentValue = get(contentKeys, key);
-            if (pageContent.indexOf(contentValue) === -1) {
+            if (!contentValue || pageContent.indexOf(contentValue) === -1) {
               missingContent.push(key);
             }
           });
