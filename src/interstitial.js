@@ -13,7 +13,7 @@ const navigatesToNext = (step, nextStep, session) => {
     });
   }
 
-  return test.get()
+  return test.post()
     .expect('Location', nextStep.path)
     .expect(httpStatus.MOVED_TEMPORARILY);
 };
