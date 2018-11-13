@@ -3,7 +3,7 @@
   "description": "Testing framwork for @hmcts/one-per-page",
   "homepage": "https://github.com/hmcts/one-per-page-test-suite#readme",
   "main": "./index.js",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hmcts/one-per-page-test-suite.git"
