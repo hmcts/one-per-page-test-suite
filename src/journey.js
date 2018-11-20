@@ -39,11 +39,18 @@ const test = steps => {
     if (toStep) {
       it(`Navigates from ${fromStep.step.name} to ${toStep.step.name}`, () => {
         expect(fromStep.step.path).to.eql(lastPath);
+        let requestInstance = {};
 
-        return server
-          .post(fromStep.step.path)
-          .type('form')
-          .send(fromStep.body)
+        // if template is Redirect
+        if (Object.getPrototypeOf(fromStep.step).name === 'Redirect') {
+          requestInstance = server.get(fromStep.step.path);
+        } else {
+          requestInstance = server.post(fromStep.step.path)
+            .type('form')
+            .send(fromStep.body);
+        }
+
+        return requestInstance
           .redirects(1)
           .then(response => {
             // get the url the page is currently on
