@@ -147,9 +147,11 @@ const configureApp = (stepDSL, includeRootSteps = true) => {
     const instance = req.journey.instance(stepDSL.step);
     const sendOriginal = res.send;
     res.send = function send(body) {
-      stepDSL._contentTransformed = walkMap(instance.content.keys, p => {
-        return instance.content[p].toString();
-      });
+      if (instance.content) {
+        stepDSL._contentTransformed = walkMap(instance.content.keys, p => {
+          return instance.content[p].toString();
+        });
+      }
       if (instance.answers) {
         stepDSL._answer = instance.answers();
       }
