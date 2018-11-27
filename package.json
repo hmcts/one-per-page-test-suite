@@ -33,7 +33,7 @@
     "mocha-param": "^2.0.0",
     "nyc": "^13.0.1",
     "proxyquire": "^1.8.0",
-    "reform-pattern-library": "https://github.com/dtaylor7/reform-pattern-library.git",
+    "reform-pattern-library": "https://github.com/hmcts/reform-pattern-library.git",
     "sinon": "^5.0.7",
     "sinon-chai": "^3.0.0",
     "supertest": "^3.1.0",
