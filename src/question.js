@@ -102,7 +102,12 @@ const rendersValues = (step, sessionData = {}, session = {}) => {
     });
 };
 
-const answers = (step, sessionData = {}, expectedContent = [], session = {}) => {
+const answers = (
+  step,
+  sessionData = {},
+  expectedContent = [],
+  session = {}
+) => {
   Object.assign(session, { [step.name]: sessionData });
   return testStep(step)
     .withSession(session)
