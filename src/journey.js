@@ -41,8 +41,10 @@ const test = steps => {
         expect(fromStep.step.path).to.eql(lastPath);
         let requestInstance = {};
 
+        const stepType = Object.getPrototypeOf(fromStep.step).name;
+
         // if template is Redirect
-        if (Object.getPrototypeOf(fromStep.step).name === 'Redirect') {
+        if (stepType === 'Redirect' || stepType === 'EntryPoint') {
           requestInstance = server.get(fromStep.step.path);
         } else {
           requestInstance = server.post(fromStep.step.path)
