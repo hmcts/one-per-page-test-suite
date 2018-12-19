@@ -67,7 +67,7 @@ const content = (step, session, options = {}) => {
             }
           });
 
-        return expect(contentExists, 'The following content should not be in the template').to.eql([]);
+        expect(contentExists, 'The following content should not be in the template').to.eql([]);
       }
 
       if (options.specificContent.length) {
@@ -80,7 +80,7 @@ const content = (step, session, options = {}) => {
             }
           });
 
-        return expect(missingContent, 'The following content was not found in template').to.eql([]);
+        expect(missingContent, 'The following content was not found in template').to.eql([]);
       }
 
       if (!options.specificValues.length) {
@@ -92,7 +92,7 @@ const content = (step, session, options = {}) => {
             }
           });
 
-        return expect(missingContent, 'The following content was not found in template').to.eql([]);
+        expect(missingContent, 'The following content was not found in template').to.eql([]);
       }
 
       const missingValues = [];
@@ -103,7 +103,7 @@ const content = (step, session, options = {}) => {
           }
         });
 
-      return expect(missingValues, 'The following values were not found in template').to.eql([]);
+       expect(missingValues, 'The following values were not found in template').to.eql([]);
     });
 };
 
