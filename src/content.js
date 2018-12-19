@@ -16,6 +16,7 @@ const templates = [
 ];
 
 const content = (step, session, options = {}) => {
+  const optionsNotGivenTestAllContent = Object.keys(options).length === 0;
   options.ignoreContent = options.ignoreContent || [];
   options.specificContent = options.specificContent || [];
   options.specificValues = options.specificValues || [];
@@ -83,7 +84,19 @@ const content = (step, session, options = {}) => {
         expect(missingContent, 'The following content was not found in template').to.eql([]);
       }
 
-      if (!options.specificValues.length) {
+      if (options.specificValues.length) {
+        const missingValues = [];
+        options.specificValues
+          .forEach(value => {
+            if (pageContent.indexOf(value) === -1) {
+              missingValues.push(value);
+            }
+          });
+  
+         expect(missingValues, 'The following values were not found in template').to.eql([]);
+      }
+
+      if (optionsNotGivenTestAllContent || options.ignoreContent.length > 2) {
         const missingContent = [];
         removeIgnoredContent(contentKeys)
           .forEach(key => {
@@ -94,16 +107,6 @@ const content = (step, session, options = {}) => {
 
         expect(missingContent, 'The following content was not found in template').to.eql([]);
       }
-
-      const missingValues = [];
-      options.specificValues
-        .forEach(value => {
-          if (pageContent.indexOf(value) === -1) {
-            missingValues.push(value);
-          }
-        });
-
-       expect(missingValues, 'The following values were not found in template').to.eql([]);
     });
 };
 
