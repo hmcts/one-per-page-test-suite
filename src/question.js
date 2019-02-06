@@ -98,11 +98,9 @@ const rendersValues = (step, sessionData = {}, session = {}) => {
     .expect(httpStatus.OK)
     .html($ => {
       Object.keys(sessionData).forEach(key => {
-        const selectors = [
-          `#${key.replace(/\./g, '\\\.')}-${sessionData[key]}`,
-          `#${key.replace(/\./g, '\\\.')}`
-        ];
-        expect($(selectors.join(', '))).has.$val(sessionData[key]);
+        const val1 = $(`#${key.replace(/\./g, '\\\.')}-${sessionData[key]}`).val();
+        const val2 = $(`#${key.replace(/\./g, '\\\.')}`).val();
+        expect(val1 || val2).to.eql(sessionData[key]);
       });
     });
 };

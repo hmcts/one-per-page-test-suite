@@ -10,8 +10,12 @@ const expect = chai.expect;
 
 describe(modulePath, () => {
   describe('#hasMiddleware', () => {
-    const middleware1 = sinon.stub();
-    const middleware2 = sinon.stub();
+    const middleware1 = () => {
+      return true;
+    };
+    const middleware2 = () => {
+      return false;
+    };
 
     const Step = class extends EntryPoint {
       get middleware() {
@@ -30,7 +34,7 @@ describe(modulePath, () => {
       const shouldFail = () => {
         return hasMiddleware(Step, [ middleware2 ]);
       };
-      return expect(shouldFail).to.throw('The following middleware was not found in step: expected [ \'stub\' ] to deeply equal []');
+      return expect(shouldFail).to.throw('The following middleware was not found in step: expected [ Array(1) ] to deeply equal []');
     });
   });
 

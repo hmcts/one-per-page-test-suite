@@ -29,7 +29,8 @@ const content = (step, session, options = {}) => {
   const removeIgnoredContent = keys => {
     const keysToReturn = [];
     walkMap(keys, path => {
-      if (!options.ignoreContent.includes(path)) {
+      const rootKey = path.split('.')[0];
+      if (!options.ignoreContent.includes(path) && !options.ignoreContent.includes(rootKey)) {
         keysToReturn.push(path);
       }
     });
