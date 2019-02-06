@@ -333,5 +333,6 @@ module.exports = {
   testStep: TestStepDSL.create,
   shouldNotSetCookie,
   shouldSetCookie,
-  wrapWithResponseAssertions
+  wrapWithResponseAssertions,
+  testStepDSL: TestStepDSL
 };

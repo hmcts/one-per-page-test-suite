@@ -1,17 +1,13 @@
 const { expect } = require('../utils/chai');
 
-const hasMiddleware = (step, middlewaresToTest = []) => {
+const hasMiddleware = (step, middlewaresToTest) => {
   const stepInstance = new step({ journey: {} });
-  const middlewares = stepInstance.middleware.map(middleware => {
-    return middleware && middleware.toString();
+
+  const middlewareNotFound = middlewaresToTest.filter(middleware => {
+    return !stepInstance.middleware.includes(middleware);
   });
-  const findMissingMiddleware = middlewareToTest => {
-    return !middlewares.includes(middlewareToTest.toString());
-  };
 
-  const middlewareNotFound = middlewaresToTest.filter(findMissingMiddleware);
-
-  expect(middlewareNotFound, 'The following middleware was not found in step').to.eql([]);
+  expect(middlewareNotFound.map(m => m.toString()), 'The following middleware was not found in step').to.eql([]); // eslint-disable-line
 };
 
 const nextMock = (req, res, next) => {

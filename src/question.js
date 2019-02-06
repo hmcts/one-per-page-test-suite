@@ -13,6 +13,7 @@ const templates = [
   'mocks',
   'mocks/steps',
   'steps',
+  'test/steps',
   'node_modules/reform-pattern-library/app/views/macros'
 ];
 
@@ -97,7 +98,11 @@ const rendersValues = (step, sessionData = {}, session = {}) => {
     .expect(httpStatus.OK)
     .html($ => {
       Object.keys(sessionData).forEach(key => {
-        expect($(`#${key.replace(/\./g, '\\\.')}-${sessionData[key]}`)).has.$val(sessionData[key]);
+        const selectors = [
+          `#${key.replace(/\./g, '\\\.')}-${sessionData[key]}`,
+          `#${key.replace(/\./g, '\\\.')}`
+        ];
+        expect($(selectors.join(', '))).has.$val(sessionData[key]);
       });
     });
 };

@@ -1,9 +1,8 @@
 const content = require('./src/content');
 const { custom, stepAsInstance } = require('./src/custom');
 const middleware = require('./src/middleware');
-const interstitial = require('./src/interstitial');
+const { navigatesToNext } = require('./src/navigation');
 const question = require('./src/question');
-const redirect = require('./src/redirect');
 const chai = require('./utils/chai');
 const itParam = require('./utils/itParam');
 const requireNoCache = require('./utils/requireNoCache');
@@ -19,9 +18,13 @@ module.exports.requireNoCache = requireNoCache;
 
 module.exports.middleware = middleware;
 
-module.exports.interstitial = interstitial;
+// support legacy `interstitial.navigatesToNext`
+module.exports.interstitial = { navigatesToNext };
 
-module.exports.redirect = redirect;
+// support legacy `redirect.navigatesToNext`
+module.exports.redirect = { navigatesToNext };
+
+module.exports.navigatesToNext = navigatesToNext;
 
 module.exports.question = question;
 
