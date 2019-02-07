@@ -5,7 +5,7 @@ const Joi = require('joi');
 
 class QuestionStep extends Question {
   get template() {
-    return 'question/QuestionStep.html';
+    return 'question_views/questionStep.html';
   }
 
   get form() {

@@ -13,7 +13,6 @@ const templates = [
   'mocks',
   'mocks/steps',
   'steps',
-  'test/steps',
   'node_modules/reform-pattern-library/app/views/macros'
 ];
 
