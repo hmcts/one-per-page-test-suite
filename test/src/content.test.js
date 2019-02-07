@@ -57,9 +57,7 @@ describe(modulePath, () => {
 
   describe('specificContent option', () => {
     it('checks specified value to be present', () => {
-      const session = {
-        myString: 'test'
-      };
+      const session = { myString: 'test' };
       return content(SampleStep, session, { specificContent: ['title', 'nested.depth.heading', 'dynamicContent'] });
     });
 

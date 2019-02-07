@@ -42,7 +42,9 @@ function testApp(stepDSL) {
     },
     safeId(...strings) {
       return strings
-        .map(str => str.toString())
+        .map(str => {
+          return str.toString();
+        })
         .join('-')
         .toLowerCase()
         // replace foo[1] to foo-1
@@ -160,7 +162,9 @@ const configureApp = (stepDSL, includeRootSteps = true) => {
     next();
   });
 
-  stepDSL[_middleware].forEach(_ => app.use(_));
+  stepDSL[_middleware].forEach(_ => {
+    return app.use(_);
+  });
   stepDSL.step.bind(app);
   stepDSL.steps.forEach(step => {
     step.bind(app);
@@ -208,18 +212,24 @@ const wrapWithResponseAssertions = (supertestObj, stepDSL) => {
   return supertestObj;
 };
 
-const shouldNotSetCookie = name => res => {
-  if (typeof res.headers['set-cookie'] !== 'undefined') {
-    return expect(res.headers['set-cookie']).to.not.include.match(name);
-  }
-  return expect(Object.keys(res.headers)).to.not.include('set-cookie');
+const shouldNotSetCookie = name => {
+  return res => {
+    if (typeof res.headers['set-cookie'] !== 'undefined') {
+      return expect(res.headers['set-cookie']).to.not.include.match(name);
+    }
+    return expect(Object.keys(res.headers)).to.not.include('set-cookie');
+  };
 };
 
 const shouldSetCookie = name => {
-  return res => Promise.all([
-    expect(Object.keys(res.headers)).to.include('set-cookie'),
-    expect(res.headers['set-cookie']).to.include.match(name)
-  ]).then(() => res);
+  return res => {
+    return Promise.all([
+      expect(Object.keys(res.headers)).to.include('set-cookie'),
+      expect(res.headers['set-cookie']).to.include.match(name)
+    ]).then(() => {
+      return res;
+    });
+  };
 };
 
 const constructorFrom = step => {
@@ -280,7 +290,9 @@ class TestStepDSL {
   }
 
   withSteps(...steps) {
-    const stepsConstructed = steps.map(step => constructorFrom(step));
+    const stepsConstructed = steps.map(step => {
+      return constructorFrom(step);
+    });
     this.steps = [...stepsConstructed, ...this.steps];
     return this;
   }
@@ -291,8 +303,8 @@ class TestStepDSL {
   }
 
   execute(method, maybePath) {
-    const path = defined(maybePath) ? maybePath : this.step.path;
-    const testExecution = supertestInstance(this)[method](path);
+    const newPath = defined(maybePath) ? maybePath : this.step.path;
+    const testExecution = supertestInstance(this)[method](newPath);
     if (this.cookies.length) {
       testExecution.set('Cookie', this.cookies.join(';'));
     }

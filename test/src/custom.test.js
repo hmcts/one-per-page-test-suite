@@ -8,7 +8,7 @@ const { testStepDSL } = require('utils/supertest');
 const expect = chai.expect;
 
 describe(modulePath, () => {
-  it('#custom returns test step DSL with instansiated with step', () => {
+  it('#custom returns test step DSL with instansiated step', () => {
     const TestStepDSL = custom(SampleStep);
     expect(TestStepDSL instanceof testStepDSL).to.eql(true);
   });

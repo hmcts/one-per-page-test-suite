@@ -3,7 +3,7 @@ const govukTemplate = require('@hmcts/look-and-feel/src/sources/govukTemplate');
 const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
 const { expect } = require('../utils/chai');
 const httpStatus = require('http-status-codes');
-const { get, unset } = require('lodash');
+const { get } = require('lodash');
 const walkMap = require('../utils/treeWalker');
 
 const templates = [

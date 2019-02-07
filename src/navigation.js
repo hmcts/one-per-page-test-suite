@@ -9,7 +9,7 @@ const navigatesToNext = (step, nextStep, session) => {
 
   if (session) {
     test.withSession(session);
-  } else if (stepType !== 'EntryPoint'){
+  } else if (stepType !== 'EntryPoint') {
     test.withSetup(req => {
       return req.session.generate();
     });

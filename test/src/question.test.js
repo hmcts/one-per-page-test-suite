@@ -98,9 +98,9 @@ describe(modulePath, () => {
 
     it('errors if values not shown on page', () => {
       const shouldFail = () => {
-        return question.rendersValues(Step1, { test: 'test' });
+        return question.rendersValues(Step1, { test: 'this is a test field' });
       };
-      return expect(shouldFail()).to.be.rejectedWith('expected <EMPTY OBJECT> to have val \'test\' but found \'undefined\'');
+      return expect(shouldFail()).to.be.rejectedWith('The key \'test\' with value \'this is a test field\'');
     });
   });
 
