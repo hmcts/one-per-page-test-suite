@@ -21,6 +21,9 @@ const test = steps => {
   });
 
   const server = custom(steps[0].step)
+    .withSteps(...steps.map(s => {
+      return s.step;
+    }))
     .asServer(true);
 
   const testPage = (fromStep, toStep) => {

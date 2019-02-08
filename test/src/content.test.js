@@ -1,16 +1,16 @@
 const modulePath = 'src/content';
 
 const content = require(modulePath);
-const SampleStep = require('./steps/Sample.step');
+const SampleStep = require('../steps/exit/Sample.step');
 const chai = require('chai');
-const itParam = require('../utils/itParam');
+const itParam = require('utils/itParam');
 
 const expect = chai.expect;
 
 describe(modulePath, () => {
   describe('ignoreContent option', () => {
     it('ignores specified content', () => {
-      return content(SampleStep, {}, { ignoreContent: ['missingValue', 'nested'] });
+      return content(SampleStep, { myString: 'somthing' }, { ignoreContent: ['missingValue', 'nested'] });
     });
 
     it('checks specified content to be present but ignores others', () => {
@@ -48,11 +48,16 @@ describe(modulePath, () => {
     });
   });
 
+  describe('not specificValues option', () => {
+    it('checks if session values are present', () => {
+      const session = { myString: 'session value', nested: { depth: { heading: 'test' } } };
+      return content(SampleStep, session, { ignoreContent: ['missingValue'] });
+    });
+  });
+
   describe('specificContent option', () => {
     it('checks specified value to be present', () => {
-      const session = {
-        myString: 'test'
-      };
+      const session = { myString: 'test' };
       return content(SampleStep, session, { specificContent: ['title', 'nested.depth.heading', 'dynamicContent'] });
     });
 
@@ -79,7 +84,7 @@ describe(modulePath, () => {
 
   describe('specificValuesToNotExist option', () => {
     it('checks specified value is not present', () => {
-      return content(SampleStep, {}, {
+      return content(SampleStep, { myString: 'test' }, {
         ignoreContent: ['missingValue', 'nested'],
         specificValuesToNotExist: ['blah']
       });

@@ -1,0 +1,27 @@
+{% extends "look-and-feel/layouts/question.html" %}
+
+{% from "look-and-feel/components/fields.njk" import formSection, selectionButtons, errorsFor %}
+
+{% set title %}
+  {{ content.title | safe }}
+{% endset %}
+
+{% block fields %}
+
+  {% call formSection() %}
+    {{ selectionButtons(fields.yesNo, content.fields.yesNo.title,
+      options = [
+        { label: content.fields.yesNo.yes, value: "yes" },
+        { label: content.fields.yesNo.no, value: "no" }
+      ]
+    ) }}
+
+    {{ selectionButtons(fields.yesNo2, content.fields.yesNo.title,
+      options = [
+        { label: content.fields.yesNo.yes, value: "yes" },
+        { label: content.fields.yesNo.no, value: "no" }
+      ]
+    ) }}
+  {% endcall %}
+
+{% endblock %}

@@ -97,12 +97,19 @@ const rendersValues = (step, sessionData = {}, session = {}) => {
     .expect(httpStatus.OK)
     .html($ => {
       Object.keys(sessionData).forEach(key => {
-        expect($(`#${key.replace(/\./g, '\\\.')}-${sessionData[key]}`)).has.$val(sessionData[key]);
+        const val1 = $(`#${key.replace(/\./g, '\\.')}-${sessionData[key]}`).val();
+        const val2 = $(`#${key.replace(/\./g, '\\.')}`).val();
+        expect(val1 || val2, `The key '${key}' with value '${sessionData[key]}' was not found on the page`).to.eql(sessionData[key]);
       });
     });
 };
 
-const answers = (step, sessionData = {}, expectedContent = [], session = {}) => {
+const answers = (
+  step,
+  sessionData = {},
+  expectedContent = [],
+  session = {}
+) => {
   Object.assign(session, { [step.name]: sessionData });
   return testStep(step)
     .withSession(session)

@@ -1,0 +1,16 @@
+{
+  "en": {
+    "title": "Title",
+    "errors": {
+      "yesNoError": "YesNo is invalid",
+      "yesNo2Error": "YesNo2 is invalid"
+    },
+    "fields": {
+      "yesNo": {
+        "title": "Answer this question",
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
+  }
+}

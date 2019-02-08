@@ -4,6 +4,7 @@ const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
 const { expect } = require('../utils/chai');
 const httpStatus = require('http-status-codes');
 const { get } = require('lodash');
+const walkMap = require('../utils/treeWalker');
 
 const templates = [
   govukTemplate.paths.templates,
@@ -26,13 +27,14 @@ const content = (step, session, options = {}) => {
 
   const stepInstance = new step({ journey: {} });
   const removeIgnoredContent = keys => {
-    return Object.keys(keys)
-      .filter(key => {
-        if (options.specificContent.length) {
-          return options.specificContent.includes(key);
-        }
-        return !options.ignoreContent.includes(key);
-      });
+    const keysToReturn = [];
+    walkMap(keys, path => {
+      const rootKey = path.split('.')[0];
+      if (!options.ignoreContent.includes(path) && !options.ignoreContent.includes(rootKey)) {
+        keysToReturn.push(path);
+      }
+    });
+    return keysToReturn;
   };
 
   return testStep(step)
@@ -87,7 +89,8 @@ const content = (step, session, options = {}) => {
         const missingContent = [];
         removeIgnoredContent(contentKeys)
           .forEach(key => {
-            if (pageContent.indexOf(contentKeys[key]) === -1) {
+            const contentValue = get(contentKeys, key);
+            if (!contentValue || pageContent.indexOf(contentValue) === -1) {
               missingContent.push(key);
             }
           });

@@ -3,7 +3,7 @@
   "description": "Testing framwork for @hmcts/one-per-page",
   "homepage": "https://github.com/hmcts/one-per-page-test-suite#readme",
   "main": "./index.js",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hmcts/one-per-page-test-suite.git"
@@ -44,7 +44,8 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "NODE_PATH=. nyc --reporter=text-summary mocha --exit 'test/**/*.test.js'"
+    "test": "NODE_PATH=. nyc mocha --exit 'test/**/*.test.js'",
+    "coverage": "nyc check-coverage"
   },
   "pre-commit": [
     "lint"
@@ -55,5 +56,29 @@
   },
   "devDependencies": {
     "config": "^2.0.1"
+  },
+  "nyc": {
+    "report-dir": "coverage",
+    "temp-directory": "./coverage/.nyc_output",
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 80,
+    "statements": 80,
+    "functions": 80,
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "exclude": [
+      "test/**/*",
+      "node_modules",
+      "coverage",
+      ".nyc_output",
+      "index.js",
+      "utils"
+    ],
+    "all": true
   }
 }
