@@ -1,7 +1,8 @@
 const express = require('express');
 const supertest = require('supertest');
 const session = require('@hmcts/one-per-page/src/session');
-const nunjucks = require('express-nunjucks');
+const nunjucks = require('nunjucks');
+const expressNunjucks = require('express-nunjucks');
 const zepto = require('zepto-node');
 const domino = require('domino');
 const { expect } = require('./chai');
@@ -65,12 +66,13 @@ function testApp(stepDSL) {
 
   Object.assign(globals, stepDSL.globals);
 
-  nunjucks(app, {
+  expressNunjucks(app, {
     autoescape: true,
     watch: true,
     noCache: true,
     globals,
-    filters
+    filters,
+    loader: nunjucks.FileSystemLoader
   });
 
   return app;

@@ -1,5 +1,5 @@
 const { testStep } = require('../utils/supertest');
-const govukTemplate = require('@hmcts/look-and-feel/src/sources/govukTemplate');
+const govukFrontend = require('@hmcts/look-and-feel/src/sources/govukFrontend');
 const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
 const { expect } = require('../utils/chai');
 const httpStatus = require('http-status-codes');
@@ -7,8 +7,10 @@ const { get } = require('lodash');
 const walkMap = require('../utils/treeWalker');
 
 const templates = [
-  govukTemplate.paths.templates,
+  govukFrontend.paths.template,
+  govukFrontend.paths.components,
   lookAndFeel.paths.templates,
+  lookAndFeel.backwardsCompatibility.templates,
   'views',
   'mocks',
   'mocks/steps',
@@ -46,6 +48,7 @@ const content = (step, session, options = {}) => {
     .get()
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
+
       if (options.specificValuesToNotExist.length) {
         const valueExists = [];
         options.specificValuesToNotExist
