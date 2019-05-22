@@ -127,9 +127,9 @@
     webpack "^3.4.1"
     webpack-dev-middleware "^2.0.4"
 
-"@hmcts/look-and-feel@https://github.com/hmcts/look-and-feel.git#ae7765e2110aa83f9f1d0f33e42eeb9515983934":
+"@hmcts/look-and-feel@https://github.com/hmcts/look-and-feel.git#bd263223817c8760bd1c0bc433a6779122d16e21":
   version "3.0.0"
-  resolved "https://github.com/hmcts/look-and-feel.git#ae7765e2110aa83f9f1d0f33e42eeb9515983934"
+  resolved "https://github.com/hmcts/look-and-feel.git#bd263223817c8760bd1c0bc433a6779122d16e21"
   dependencies:
     babel-core "^6.26.0"
     babel-loader "^7.1.2"
