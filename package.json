@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hmcts/eslint-config": "^1.3.0",
-    "@hmcts/look-and-feel": "https://github.com/hmcts/look-and-feel.git#4de5f0b352967486522858ae7a237dbd1149a36f",
+    "@hmcts/look-and-feel": "https://github.com/hmcts/look-and-feel.git#e3ca362594b65380c51bc9056253cc60a5c54ba7",
     "@hmcts/one-per-page": "^5.0.0",
     "@hmcts/tech-docs": "^0.4.0",
     "chai": "^4.1.2",
