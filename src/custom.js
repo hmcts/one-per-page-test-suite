@@ -1,10 +1,12 @@
 const { testStep } = require('../utils/supertest');
-const govukTemplate = require('@hmcts/look-and-feel/src/sources/govukTemplate');
+const govukFrontend = require('@hmcts/look-and-feel/src/sources/govukFrontend');
 const lookAndFeel = require('@hmcts/look-and-feel/src/sources/lookAndFeel');
 
 const templates = [
-  govukTemplate.paths.templates,
+  govukFrontend.paths.template,
+  govukFrontend.paths.components,
   lookAndFeel.paths.templates,
+  lookAndFeel.backwardsCompatibility.templates,
   'views',
   'mocks',
   'mocks/steps',

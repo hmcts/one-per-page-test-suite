@@ -3,7 +3,7 @@
   "description": "Testing framwork for @hmcts/one-per-page",
   "homepage": "https://github.com/hmcts/one-per-page-test-suite#readme",
   "main": "./index.js",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hmcts/one-per-page-test-suite.git"
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@hmcts/eslint-config": "^1.3.0",
-    "@hmcts/look-and-feel": "^2.2.2",
+    "@hmcts/look-and-feel": "^3.0.0",
     "@hmcts/one-per-page": "^5.0.0",
     "@hmcts/tech-docs": "^0.4.0",
     "chai": "^4.1.2",
