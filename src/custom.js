@@ -10,8 +10,7 @@ const templates = [
   'views',
   'mocks',
   'mocks/steps',
-  'steps',
-  'node_modules/reform-pattern-library/app/views/macros'
+  'steps'
 ];
 
 const custom = step => {
