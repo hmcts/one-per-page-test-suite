@@ -33,7 +33,7 @@ const testErrors = (step, session = {}, fields = {}, options = {}) => {
   const server = request.asServer(true);
 
   return server
-    .post(step.path)
+    .post(options.path || step.path)
     .type('form')
     .send(fields)
     .redirects(1)

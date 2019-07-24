@@ -44,7 +44,7 @@ const content = (step, session, options = {}) => {
       return Object.assign(req.session, { entryPoint: step.name }, session);
     })
     .withViews(...templates, stepInstance.dirname)
-    .get()
+    .get(options.path)
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
 
