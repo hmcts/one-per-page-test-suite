@@ -1,5 +1,6 @@
 {
   "en": {
+    "thereWasAProblem": "There was a problem",
     "title": "Title",
     "errors": {
       "yesNoError": "YesNo is invalid",
