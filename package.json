@@ -43,6 +43,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "NODE_PATH=. nyc mocha --exit 'test/**/*.test.js'",
+    "audit:check": "chmod +x ./bin/audit-check.sh && ./bin/audit-check.sh",
     "coverage": "nyc check-coverage"
   },
   "pre-commit": [
