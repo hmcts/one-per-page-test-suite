@@ -60,7 +60,7 @@ function testApp(stepDSL) {
 
   // import filters from main project
   try {
-    const allFilters = require(path.resolve(projectDir, 'views/filters')); // eslint-disable-line
+    const allFilters = require(path.resolve(projectDir, 'views/filters'));
     filters = allFilters(); // eslint-disable-line
   } catch (e) { console.log(e) } // eslint-disable-line
 
@@ -89,7 +89,7 @@ const configureApp = (stepDSL, includeRootSteps = true) => {
     // import filters from main project
     let projectSteps = [];
     try {
-      const allSteps = require(path.resolve(projectDir, 'steps')); // eslint-disable-line
+      const allSteps = require(path.resolve(projectDir, 'steps'));
       projectSteps = allSteps(); // eslint-disable-line
     } catch (e) { console.log(e) } // eslint-disable-line
     stepDSL.steps = [...projectSteps, ...stepDSL.steps];

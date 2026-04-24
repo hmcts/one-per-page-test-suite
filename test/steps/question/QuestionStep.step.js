@@ -13,7 +13,7 @@ class QuestionStep extends Question {
       .joi(
         this.content.errors.yesNoError,
         Joi.string()
-          .valid(['yes', 'no'])
+          .valid('yes', 'no')
           .required()
       );
 
@@ -21,7 +21,7 @@ class QuestionStep extends Question {
       .joi(
         this.content.errors.yesNo2Error,
         Joi.string()
-          .valid(['yes', 'no'])
+          .valid('yes', 'no')
           .required()
       );
 

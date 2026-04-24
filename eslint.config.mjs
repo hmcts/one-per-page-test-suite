@@ -97,5 +97,6 @@ export default defineConfig([globalIgnores([
         "no-throw-literal": "off",
         "object-curly-newline": "off",
         "consistent-return": "off",
+        'no-useless-assignment': 'off'
     },
 }]);
