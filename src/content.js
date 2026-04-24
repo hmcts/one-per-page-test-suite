@@ -47,7 +47,6 @@ const content = (step, session, options = {}) => {
     .get(options.path)
     .expect(httpStatus.OK)
     .text((pageContent, contentKeys) => {
-
       if (options.specificValuesToNotExist.length) {
         const valueExists = [];
         options.specificValuesToNotExist

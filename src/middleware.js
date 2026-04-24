@@ -11,7 +11,7 @@ const hasMiddleware = (step, middlewaresToTest) => {
     return !stepMiddlewares.includes(middleware.toString());
   });
 
-  expect(middlewareNotFound.map(m => m.toString()), 'The following middleware was not found in step').to.eql([]); // eslint-disable-line
+  expect(middlewareNotFound.map(m => m.toString()), 'The following middleware was not found in step').to.eql([]);
 };
 
 const nextMock = (req, res, next) => {

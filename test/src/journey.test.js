@@ -23,9 +23,8 @@ const Step2 = class extends Question {
     return redirectTo(Step3);
   }
   get form() {
-    const answers = ['yes', 'no'];
     const validAnswers = Joi.string()
-      .valid(answers)
+      .valid('yes', 'no')
       .required();
 
     return form({ field: text.joi('Error', validAnswers) });

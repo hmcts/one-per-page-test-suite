@@ -4,7 +4,7 @@ const _invalidateRequireCacheForFile = filePath => {
 
 const requireNoCache = filePath => {
   _invalidateRequireCacheForFile(filePath);
-  return require(filePath); // eslint-disable-line global-require
+  return require(filePath);
 };
 
 module.exports = requireNoCache;
