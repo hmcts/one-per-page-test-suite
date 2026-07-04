@@ -1292,7 +1292,7 @@ __metadata:
     chai-as-promised: "npm:^7.1.1"
     chai-jq: "npm:^0.0.9"
     codacy-coverage: "npm:^3.4.0"
-    config: "npm:^2.0.1"
+    config: "npm:^4.0.0"
     cookie-parser: "npm:^1.4.3"
     domino: "npm:^2.0.2"
     eslint: "npm:10.0.2"
@@ -2945,21 +2945,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@npm:^2.0.1":
-  version: 2.0.2
-  resolution: "config@npm:2.0.2"
-  dependencies:
-    json5: "npm:^1.0.1"
-  checksum: 10c0/a8ddd2e165817c457f7488e9e89a150147720c7c31cd4d9566be2c09306f3f1e1b8c2d67adcc4e53a272667f9677204054cc5347d898c6e7285a320a1fb8a1a7
-  languageName: node
-  linkType: hard
-
 "config@npm:^3.3.12":
   version: 3.3.12
   resolution: "config@npm:3.3.12"
   dependencies:
     json5: "npm:^2.2.3"
   checksum: 10c0/496b3ef740754527cbc59d11df234f5be5b5f44511d14ca7fa6117fda0959ccd4cc6d8da2d94cb0dfcdf77d9d7aaaa34558d6dcce0a7860a3a8cf8a54c77b237
+  languageName: node
+  linkType: hard
+
+"config@npm:^4.0.0":
+  version: 4.4.2
+  resolution: "config@npm:4.4.2"
+  dependencies:
+    json5: "npm:^2.2.3"
+  checksum: 10c0/2ef94db31c8f573d2beefa6682ec16f142f9f56710c43e4fc8a8d5bb48cc056b1f8174ae8fa4554af23c041e366dc8c940e7e6d9664904c6ef0ed2e60fe51216
   languageName: node
   linkType: hard
 
