@@ -1316,8 +1316,8 @@ __metadata:
   linkType: soft
 
 "@hmcts/one-per-page@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "@hmcts/one-per-page@npm:7.0.0"
+  version: 7.0.4
+  resolution: "@hmcts/one-per-page@npm:7.0.4"
   dependencies:
     "@hapi/cryptiles": "npm:6.0.3"
     "@hapi/hoek": "npm:^11.0.7"
@@ -1326,7 +1326,7 @@ __metadata:
     callsites: "npm:^3.1.0"
     colors: "npm:^1.4.0"
     config: "npm:^3.3.12"
-    connect-redis: "npm:^9.0.0"
+    connect-redis: "npm:5.2.0"
     cookie-parser: "npm:^1.4.6"
     csurf: "npm:^1.11.0"
     debug: "npm:^4.3.7"
@@ -1343,13 +1343,14 @@ __metadata:
     node-emoji: "npm:^1.11.0"
     nunjucks: "npm:^3.2.4"
     option: "npm:^0.2.4"
+    redis: "npm:3.1.2"
     router: "npm:2.2.0"
     sanitizer: "npm:^0.1.3"
     slug: "npm:^9.1.0"
     sshpk: "npm:^1.18.0"
     traverse: "npm:^0.6.10"
     url-parse: "npm:^1.5.10"
-  checksum: 10c0/0c85792be2c5bf722ca2ab6513ae385996cceb677de3db150aa75cba03180c9479124d8b2b1e5e8f37aaf7c1bdbb474216f5adc6e659411d7e99ab052df028eb
+  checksum: 10c0/ba643661120129614808fc0744832a213ed7c5c543cc46471fc8afef792761276b859a9fb64cca25d11283e36784bb5eccf8a8863428b2abe7ed8072d8c9bf3d
   languageName: node
   linkType: hard
 
@@ -2963,13 +2964,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"connect-redis@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "connect-redis@npm:9.0.0"
-  peerDependencies:
-    express-session: ">=1"
-    redis: ">=5"
-  checksum: 10c0/85616db0760f7974ed14f0676488dab168c111ae2068fae645a8b1acd0acf72d3c57d2252deb50eff662c22db72a6028e1635d9ff8450f3cac853278aa64051a
+"connect-redis@npm:5.2.0":
+  version: 5.2.0
+  resolution: "connect-redis@npm:5.2.0"
+  checksum: 10c0/89352028531d0c7ed86ebbb3af923e0cf41dc098aa556925d7372ec9b9fafb228bfc1085a77888a1c7c2373844c8ac336b2ebb8771cb9b89785770e932ae5888
   languageName: node
   linkType: hard
 
@@ -3323,6 +3321,13 @@ __metadata:
   version: 1.0.0
   resolution: "delayed-stream@npm:1.0.0"
   checksum: 10c0/d758899da03392e6712f042bec80aa293bbe9e9ff1b2634baae6a360113e708b91326594c8a486d475c69d6259afb7efacdc3537bfcda1c6c648e390ce601b19
+  languageName: node
+  linkType: hard
+
+"denque@npm:^1.5.0":
+  version: 1.5.1
+  resolution: "denque@npm:1.5.1"
+  checksum: 10c0/9e6fc1a63e1c9ded38325290302fef40e5ad28471ad8c66d68eaea623ef847bd25fc75a7c3f47396206dc967922615999066470a364e1786f2758d61337872b7
   languageName: node
   linkType: hard
 
@@ -6767,6 +6772,41 @@ __metadata:
   dependencies:
     picomatch: "npm:^2.2.1"
   checksum: 10c0/293de2ed981884a09e76fbf90bddc7e1a87667e57e0284ddc8c177e3151b0d179a9a56441d9f2f3654423924ec100af57ba9e507086527f98fd1d21bdd041c3e
+  languageName: node
+  linkType: hard
+
+"redis-commands@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "redis-commands@npm:1.7.0"
+  checksum: 10c0/c78b46d8d6e811f422961878538c57048a451ab56760d3f1657a7c8f29aaae42cc23890f75655556a59ec67611022e18cb443d2976e6c55036934bfe783aa60e
+  languageName: node
+  linkType: hard
+
+"redis-errors@npm:^1.0.0, redis-errors@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "redis-errors@npm:1.2.0"
+  checksum: 10c0/5b316736e9f532d91a35bff631335137a4f974927bb2fb42bf8c2f18879173a211787db8ac4c3fde8f75ed6233eb0888e55d52510b5620e30d69d7d719c8b8a7
+  languageName: node
+  linkType: hard
+
+"redis-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "redis-parser@npm:3.0.0"
+  dependencies:
+    redis-errors: "npm:^1.0.0"
+  checksum: 10c0/ee16ac4c7b2a60b1f42a2cdaee22b005bd4453eb2d0588b8a4939718997ae269da717434da5d570fe0b05030466eeb3f902a58cf2e8e1ca058bf6c9c596f632f
+  languageName: node
+  linkType: hard
+
+"redis@npm:3.1.2":
+  version: 3.1.2
+  resolution: "redis@npm:3.1.2"
+  dependencies:
+    denque: "npm:^1.5.0"
+    redis-commands: "npm:^1.7.0"
+    redis-errors: "npm:^1.2.0"
+    redis-parser: "npm:^3.0.0"
+  checksum: 10c0/452d4ed65948b101e379c1abcce7682619382c90929a6611baae5f7f1d38134ce20ad65adfbaa569b735274b49db14a2ebb622800e0b45a4d1559e2133c7aabe
   languageName: node
   linkType: hard
 
