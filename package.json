@@ -48,7 +48,7 @@
     "chai-jq": "^0.0.9",
     "codacy-coverage": "^3.4.0",
     "config": "^2.0.1",
-    "eslint": "10.0.2",
+    "eslint": "10.10.0",
     "eslint-plugin-mocha": "^11.2.0",
     "globals": "^17.5.0",
     "http-status-codes": "^2.3.0",
